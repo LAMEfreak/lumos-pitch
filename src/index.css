@@ -59,6 +59,9 @@ body {
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --text-color: #1E1D1D
+
   }
 
   .dark {
@@ -89,6 +92,8 @@ body {
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    --text-color: #E9E9E9
   }
 }
 
@@ -98,12 +103,14 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    color: var(--text-color);
+
   }
 }
 
 main,
 nav {
-  @apply max-w-6xl mx-auto my-0;
+  @apply my-0;
 }
 
 p {
