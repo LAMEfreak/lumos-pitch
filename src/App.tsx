@@ -3,8 +3,8 @@ import LoginButton from "./components/LoginButton";
 
 function App() {
   return (
-    <main>
-      <p>Lumos App</p>
+    <main className="min-h-screen flex flex-col justify-center items-center text-center p-8">
+      <h1>Lumos App</h1>
       <LoginButton />
     </main>
   );

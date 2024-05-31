@@ -7,6 +7,8 @@ import ErrorBoundary from "./pages/ErrorBoundary.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Dashboard from "./pages/Dashboard.tsx";
 import { AuthenticationGuard } from "./utilities/AuthenticationGuard.tsx";
+import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/utilities/ThemeProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorBoundary />,
   },
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: <AuthenticationGuard component={Dashboard} />,
   },
 ]);
@@ -33,7 +35,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         // scope: "read:current_user update:current_user_metadata",
       }}
     >
-      <RouterProvider router={router} />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <RouterProvider router={router} />
+        <Toaster />
+      </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>
 );
