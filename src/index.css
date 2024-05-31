@@ -8,7 +8,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #edededde;
   background-color: #242424;
 
   font-synthesis: none;
@@ -18,26 +18,109 @@
 }
 
 body {
-  background: #010115; /* fallback color */
-  background: linear-gradient(135deg, rgb(2, 0, 16), rgb(1, 43, 59));
-
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+  /* background: #010115; fallback color */
+  /* background: linear-gradient(135deg, rgb(2, 0, 16), rgb(1, 43, 59)); */
   margin: 0;
   display: flex;
-  place-items: center;
+  position: relative;
   min-width: 320px;
   min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --text-color: #1E1D1D
+
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --text-color: #E9E9E9
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    color: var(--text-color);
+
+  }
+}
+
+main,
+nav {
+  @apply my-0;
+}
+
+p {
+  @apply mt-2;
+}
+
+h1 {
+  @apply scroll-m-20 text-4xl mb-4 font-bold tracking-tight lg:text-5xl;
+}
+
+h2 {
+  @apply scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
 }

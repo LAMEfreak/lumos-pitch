@@ -1,4 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from "../ui/button";
+import { LogOut } from "lucide-react";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
@@ -11,12 +13,14 @@ const LogoutButton = () => {
   };
 
   return (
-    <button
+    <Button
+      variant="outline"
+      size="icon"
+      className="rounded-full bg-red-100 dark:hover:bg-red-900 hover:bg-red-200 hover:border-red-200"
       onClick={handleLogout}
-      className="rounded-full py-3 mt-2 w-80 bg-red-600 hover:bg-red-700 transition-all duration-300"
     >
-      Log Out
-    </button>
+      <LogOut size={18} />
+    </Button>
   );
 };
 

@@ -6,7 +6,7 @@ const LoginButton = () => {
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
-        returnTo: "http://localhost:5173/dashboard",
+        returnTo: "http://localhost:5173/dashboard/overview",
       },
       // authorizationParams: {
       //   screen_hint: "signup",

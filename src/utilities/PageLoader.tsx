@@ -2,7 +2,7 @@ import { ThreeDots } from "react-loader-spinner";
 
 const PageLoader = () => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col justify-center items-center text-center p-8">
       <ThreeDots
         visible={true}
         height="80"
