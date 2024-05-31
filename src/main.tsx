@@ -25,7 +25,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Auth0Provider
       domain="dev-wnqp04xircjjnguk.us.auth0.com"
       clientId="7zZvVwOD8axKOS5AjVuT1aNX9wDHfvuU"
-      authorizationParams={{ redirect_uri: "http://localhost:5173/dashboard" }}
+      authorizationParams={{
+        redirect_uri: "http://localhost:5173/dashboard",
+        // TODO: Set up API audience
+        // Scope is only needed for Authorisation Claims
+        // audience: "https://dev-wnqp04xircjjnguk.us.auth0.com/api/v2/",
+        // scope: "read:current_user update:current_user_metadata",
+      }}
     >
       <RouterProvider router={router} />
     </Auth0Provider>
