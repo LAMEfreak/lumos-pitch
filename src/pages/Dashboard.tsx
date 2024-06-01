@@ -2,6 +2,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import PageLoader from "../utilities/PageLoader";
+// import axios from "axios";
 
 const ToastWithTitle = () => {
   const { toast } = useToast();
@@ -27,6 +28,7 @@ const Dashboard = () => {
   if (isLoading) {
     return <PageLoader />;
   }
+
   return (
     isAuthenticated && (
       <section className="p-8 flex flex-col items-center align-middle">

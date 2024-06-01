@@ -37,14 +37,13 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Auth0Provider
-      domain="dev-wnqp04xircjjnguk.us.auth0.com"
-      clientId="7zZvVwOD8axKOS5AjVuT1aNX9wDHfvuU"
+      domain={import.meta.env.VITE_SOME_DOMAIN}
+      clientId={import.meta.env.VITE_SOME_CLIENT_ID}
       authorizationParams={{
         redirect_uri: "http://localhost:5173/dashboard/overview",
-        // TODO: Set up API audience
-        // Scope is only needed for Authorisation Claims
-        // audience: "https://dev-wnqp04xircjjnguk.us.auth0.com/api/v2/",
-        // scope: "read:current_user update:current_user_metadata",
+        audience: import.meta.env.VITE_SOME_AUDIENCE,
+        // scope:
+        //   "read:current_user update:current_user_metadata openid profile email",
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
