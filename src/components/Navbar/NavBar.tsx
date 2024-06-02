@@ -23,17 +23,22 @@ const NavBar = () => {
       setTime(getTime());
       setDate(getDate());
       console.log("Updating time and date");
-      
     }, 60000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [getTime, getDate]);
+  }, [time, date]);
 
   return (
-    <section className="px-10 text-right py-4 border-b">
-      <div className="flex justify-end gap-4 text-middle">
+    <section className="px-10 text-right py-4 border-b flex justify-between">
+      <div className="flex gap-4">
+        <p className="font-semibold">Startup</p>
+        <p className="text-xs px-2 py-1 rounded-full text-blue-500 dark:text-blue-300 bg-blue-100 dark:bg-blue-900">
+          Industry
+        </p>
+      </div>
+      <div className="flex gap-4 text-middle">
         <p className="text-md font-medium">{time}</p>
         <p className="text-md">{date}</p>
       </div>

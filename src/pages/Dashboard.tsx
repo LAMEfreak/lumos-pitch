@@ -30,15 +30,71 @@ const Dashboard = () => {
     try {
       const token = await getAccessTokenSilently();
       const body = {
-        name: "Bearer",
+        name: "Koko",
         type: "VC",
         company: "test",
         stage: "Series A",
-        email: "test@gmail.com",
+        email: "koko@gmail.com",
       };
       const post = await axios.post(`http://localhost:8080/investors`, body, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(post);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
+  const deleteOne = async () => {
+    const investorToDelete = 17;
+    try {
+      const token = await getAccessTokenSilently();
+      const result = await axios.delete(
+        `http://localhost:8080/investors/${investorToDelete}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
+  const getOne = async () => {
+    const investorId = 3;
+    try {
+      const token = await getAccessTokenSilently();
+      const result = await axios.get(
+        `http://localhost:8080/investors/${investorId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
+  const editOne = async () => {
+    const investorId = 5;
+    try {
+      const token = await getAccessTokenSilently();
+      const body = {
+        name: "Koko",
+        type: "VC",
+        company: "test",
+        stage: "Series A",
+        email: "koko@gmail.com",
+      };
+      const post = await axios.put(
+        `http://localhost:8080/investors/${investorId}`,
+        body,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log(post);
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -59,8 +115,33 @@ const Dashboard = () => {
           onClick={() => {
             postData();
           }}
+          className="p-2 bg-blue-800 mb-4"
         >
-          123
+          Create an investor
+        </button>
+        <button
+          onClick={() => {
+            deleteOne();
+          }}
+          className="p-2 bg-blue-800 mb-4"
+        >
+          Delete investor
+        </button>
+        <button
+          onClick={() => {
+            getOne();
+          }}
+          className="p-2 bg-blue-800 mb-4"
+        >
+          Get 1 investor
+        </button>
+        <button
+          onClick={() => {
+            editOne();
+          }}
+          className="p-2 bg-blue-800 mb-4"
+        >
+          Edit 1 investor{" "}
         </button>
       </section>
     )
