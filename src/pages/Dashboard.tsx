@@ -26,9 +26,9 @@ const ToastWithTitle = () => {
 const Dashboard = () => {
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
     useAuth0();
-    
-  // To send the auth0Id to the backend to create a new user
+
   useEffect(() => {
+    // To send the auth0Id to the backend to create a new user
     const sendAuth0Id = async () => {
       const body = {
         auth0Id: user?.sub,
@@ -48,18 +48,20 @@ const Dashboard = () => {
         console.log(`Error: ${error}`);
       }
     };
+
     sendAuth0Id();
-  }, []);
+  }, [getAccessTokenSilently, user?.sub, user?.email]);
 
   const postData = async () => {
     try {
       const token = await getAccessTokenSilently();
       const body = {
-        name: "Koko",
-        type: "VC",
+        name: "German",
+        type: "Angel",
         company: "test",
         stage: "Series A",
-        email: "koko@gmail.com",
+        email: "fofo@gmail.com",
+        auth0Id: user?.sub,
       };
       const post = await axios.post(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors`,
@@ -75,7 +77,7 @@ const Dashboard = () => {
   };
 
   const deleteOne = async () => {
-    const investorToDelete = 2;
+    const investorToDelete = 4;
     try {
       const token = await getAccessTokenSilently();
       const result = await axios.delete(
@@ -93,7 +95,7 @@ const Dashboard = () => {
   };
 
   const getOne = async () => {
-    const investorId = 3;
+    const investorId = 7;
     try {
       const token = await getAccessTokenSilently();
       const result = await axios.get(
@@ -106,10 +108,25 @@ const Dashboard = () => {
     } catch (error) {
       console.log(`Error: ${error}`);
     }
+  }
+
+  const getAll = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+      const result = await axios.get(
+        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${user?.sub}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
   };
 
   const editOne = async () => {
-    const investorId = 5;
+    const investorId = 4;
     try {
       const token = await getAccessTokenSilently();
       const body = {
@@ -140,7 +157,9 @@ const Dashboard = () => {
     isAuthenticated && (
       <section className="p-8 flex flex-col items-center align-middle">
         <span className="text-2xl mb-4">Dashboard</span>
-        <span className="mt-4">{user?.name} is logged in.</span>
+        <span className="mt-4">
+          {user?.name ? user.name : "No name!!"} is logged in.
+        </span>
         <ToastWithTitle />
         <button
           onClick={() => {
@@ -165,6 +184,14 @@ const Dashboard = () => {
           className="p-2 bg-blue-800 mb-4"
         >
           Get 1 investor
+        </button>
+        <button
+          onClick={() => {
+            getAll();
+          }}
+          className="p-2 bg-blue-800 mb-4"
+        >
+          Get all investors tied to the user
         </button>
         <button
           onClick={() => {
