@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import PageLoader from "../utilities/PageLoader";
 import axios from "axios";
+import { useEffect } from "react";
 
 const ToastWithTitle = () => {
   const { toast } = useToast();
@@ -25,6 +26,30 @@ const ToastWithTitle = () => {
 const Dashboard = () => {
   const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
     useAuth0();
+    
+  // To send the auth0Id to the backend to create a new user
+  useEffect(() => {
+    const sendAuth0Id = async () => {
+      const body = {
+        auth0Id: user?.sub,
+        email: user?.email,
+      };
+      const token = await getAccessTokenSilently();
+      try {
+        const result = await axios.post(
+          `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup`,
+          body,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log(result);
+      } catch (error) {
+        console.log(`Error: ${error}`);
+      }
+    };
+    sendAuth0Id();
+  }, []);
 
   const postData = async () => {
     try {
@@ -36,9 +61,13 @@ const Dashboard = () => {
         stage: "Series A",
         email: "koko@gmail.com",
       };
-      const post = await axios.post(`http://localhost:8080/investors`, body, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const post = await axios.post(
+        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors`,
+        body,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       console.log(post);
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -46,11 +75,13 @@ const Dashboard = () => {
   };
 
   const deleteOne = async () => {
-    const investorToDelete = 17;
+    const investorToDelete = 2;
     try {
       const token = await getAccessTokenSilently();
       const result = await axios.delete(
-        `http://localhost:8080/investors/${investorToDelete}`,
+        `${
+          import.meta.env.VITE_SOME_BACKEND_SERVER
+        }/investors/${investorToDelete}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -66,7 +97,7 @@ const Dashboard = () => {
     try {
       const token = await getAccessTokenSilently();
       const result = await axios.get(
-        `http://localhost:8080/investors/${investorId}`,
+        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${investorId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -89,7 +120,7 @@ const Dashboard = () => {
         email: "koko@gmail.com",
       };
       const post = await axios.put(
-        `http://localhost:8080/investors/${investorId}`,
+        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${investorId}`,
         body,
         {
           headers: { Authorization: `Bearer ${token}` },
