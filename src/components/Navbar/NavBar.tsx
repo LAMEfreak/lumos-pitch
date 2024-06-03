@@ -47,10 +47,10 @@ const NavBar = () => {
   }, [getAccessTokenSilently, user?.sub]);
 
   return (
-    <section className="px-10 text-right py-4 border-b flex items-center justify-between">
+    <section className="px-10 text-right sticky top-0 z-50 py-4 border-b flex bg-background items-center justify-between">
       <div className="flex gap-4 items-center">
         <p className="font-semibold">{companyName || "Company"}</p>
-        <p className="text-xs px-2 py-1 rounded-full text-blue-500 dark:text-blue-300 bg-blue-100 dark:bg-blue-900">
+        <p className="text-xs px-3 py-1 rounded-full text-blue-500 dark:text-blue-300 bg-blue-100 dark:bg-blue-950">
           {companyIndustry || "Industry"}
         </p>
         <EditButton

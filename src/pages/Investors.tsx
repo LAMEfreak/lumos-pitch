@@ -1,7 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import PageLoader from "../utilities/PageLoader";
+import InvestorsMasterList from "@/components/InvestorsMasterList/InvestorsMasterList";
 
-const Sessions = () => {
+const Investors = () => {
   const { user, isLoading, isAuthenticated } = useAuth0();
   console.log(user);
 
@@ -11,10 +12,10 @@ const Sessions = () => {
 
   return (
     isAuthenticated && (
-      <section className="p-8 flex flex-col items-center align-middle">
-        <span className="text-2xl mb-4">Investors</span>
+      <section className="flex flex-col items-center p-2 align-middle">
+        <InvestorsMasterList />
       </section>
     )
   );
 };
-export default Sessions;
+export default Investors;

@@ -14,11 +14,11 @@ const Layout = () => {
 
   return (
     isAuthenticated && (
-      <div className="flex size-full">
+      <div className="flex size-full ">
         <SidePanel />
-        <div className="flex flex-col size-full">
+        <div className="flex ml-20 flex-col size-full">
           <NavBar />
-          <main className="p-4 flex-grow">
+          <main className="h-full mt-4">
             <Outlet />
           </main>
         </div>

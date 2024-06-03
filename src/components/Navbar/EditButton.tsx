@@ -73,9 +73,7 @@ const EditButton = ({
         >
           <DialogHeader>
             <DialogTitle>Edit Company Profile</DialogTitle>
-            <DialogDescription>
-              Update your company details here
-            </DialogDescription>
+            <DialogDescription>{""}</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
