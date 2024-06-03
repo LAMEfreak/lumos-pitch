@@ -37,6 +37,14 @@ const EditButton = ({
     console.log(` `);
     console.log(auth0Id);
 
+    if (!name && !industry) {
+      toast({
+        variant: "destructive",
+        title: "Wait a second...",
+        description: "No company details added",
+      });
+      return;
+    }
     const body = {
       name,
       industry,
@@ -52,6 +60,12 @@ const EditButton = ({
       console.log(result.data);
       setCompanyName(name);
       setCompanyIndustry(industry);
+      setName("");
+      setIndustry("");
+      setIsOpen(false);
+      toast({
+        description: "Your profile has been updated.",
+      });
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -75,8 +89,8 @@ const EditButton = ({
             <DialogTitle>Edit Company Profile</DialogTitle>
             <DialogDescription>{""}</DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
+          <div className="grid gap-8 py-4">
+            <div className="grid grid-cols-4 items-center gap-6">
               <Label htmlFor="company" className="text-right">
                 Company
               </Label>
@@ -87,8 +101,6 @@ const EditButton = ({
                 placeholder="Enter company name"
                 onChange={(e) => setName(e.target.value)}
               />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="industry" className="text-right">
                 Industry
               </Label>
@@ -105,11 +117,8 @@ const EditButton = ({
             <Button
               onClick={(e) => {
                 handleSubmit(e);
-                setIsOpen(false);
-                toast({
-                  description: "Your profile has been updated.",
-                });
               }}
+              className="mt-2"
             >
               Save changes
             </Button>

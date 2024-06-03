@@ -18,7 +18,7 @@ export type Investor = {
   company: string | null;
   stage: "Pre Seed" | "Seed" | "Series A" | "Series B" | "Series C";
   email: string;
-  updated: string;
+  updatedAt: string;
 };
 
 export const columns: ColumnDef<Investor>[] = [
@@ -42,10 +42,10 @@ export const columns: ColumnDef<Investor>[] = [
     accessorKey: "email",
     header: "Email",
   },
-  {
-    accessorKey: "updated",
-    header: "Updated",
-  },
+  // {
+  //   accessorKey: "updatedAt",
+  //   header: "Updated",
+  // },
   {
     id: "select",
     header: ({ table }) => (
@@ -87,7 +87,9 @@ export const columns: ColumnDef<Investor>[] = [
               Edit{" "}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem className="dark:hover:bg-red-900">
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

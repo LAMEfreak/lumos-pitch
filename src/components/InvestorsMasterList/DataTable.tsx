@@ -12,6 +12,7 @@ import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { X } from "lucide-react";
 
 import {
   Table,
@@ -54,14 +55,14 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex py-4">
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-1/2 items-center">
           <Input
             placeholder="Name"
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="max-w-30 text-xs"
+            className="w-30 text-xs"
           />
           <Input
             placeholder="Type"
@@ -69,8 +70,15 @@ export function DataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("type")?.setFilterValue(event.target.value)
             }
-            className="max-w-30 text-xs"
+            className="w-30 text-xs"
           />
+          <X
+            className="text-gray-400 cursor-pointer"
+            size={20}
+            onClick={() => setColumnFilters([])}
+          >
+            Clear
+          </X>
         </div>
       </div>
       <div className="rounded-md border">
