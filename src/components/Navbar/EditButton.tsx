@@ -14,6 +14,7 @@ import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
 
 const EditButton = ({
   setCompanyName,
@@ -26,6 +27,7 @@ const EditButton = ({
   const [industry, setIndustry] = useState("");
   const { user, getAccessTokenSilently } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -106,6 +108,9 @@ const EditButton = ({
               onClick={(e) => {
                 handleSubmit(e);
                 setIsOpen(false);
+                toast({
+                  description: "Your profile has been updated.",
+                });
               }}
             >
               Save changes

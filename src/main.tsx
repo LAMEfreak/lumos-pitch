@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/utilities/ThemeProvider.tsx";
 import Sessions from "./pages/Sessions.tsx";
 import Dashboard from "./pages/Dashboard";
+import Investors from "./pages/Investors";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/sessions",
         element: <AuthenticationGuard component={Sessions} />,
+      },
+      {
+        path: "/dashboard/investors",
+        element: <AuthenticationGuard component={Investors} />,
       },
     ],
   },

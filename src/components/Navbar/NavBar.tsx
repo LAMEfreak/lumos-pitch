@@ -4,10 +4,9 @@ import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditButton from "./EditButton";
 
-import { getTime, getDate, User } from "./utilities";
+import { getTime, getDate } from "./utilities";
 
 const NavBar = () => {
-  const [currentUser, setCurrentUser] = useState({} as User);
   const [time, setTime] = useState(getTime());
   const [date, setDate] = useState(getDate());
   const { user, getAccessTokenSilently } = useAuth0();
@@ -38,7 +37,6 @@ const NavBar = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        setCurrentUser(result.data);
         setCompanyName(result.data.name);
         setCompanyIndustry(result.data.industry);
       } catch (error) {
