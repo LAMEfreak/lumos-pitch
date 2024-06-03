@@ -77,7 +77,7 @@ const Dashboard = () => {
   };
 
   const deleteOne = async () => {
-    const investorToDelete = 4;
+    const investorToDelete = 3;
     try {
       const token = await getAccessTokenSilently();
       const result = await axios.delete(
@@ -92,10 +92,10 @@ const Dashboard = () => {
     } catch (error) {
       console.log(`Error: ${error}`);
     }
-  };
+  }; 
 
   const getOne = async () => {
-    const investorId = 7;
+    const investorId = 2;
     try {
       const token = await getAccessTokenSilently();
       const result = await axios.get(
@@ -108,7 +108,7 @@ const Dashboard = () => {
     } catch (error) {
       console.log(`Error: ${error}`);
     }
-  }
+  };
 
   const getAll = async () => {
     try {
@@ -126,7 +126,7 @@ const Dashboard = () => {
   };
 
   const editOne = async () => {
-    const investorId = 4;
+    const investorId = 3;
     try {
       const token = await getAccessTokenSilently();
       const body = {
