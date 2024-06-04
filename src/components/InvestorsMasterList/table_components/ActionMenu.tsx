@@ -24,12 +24,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useContext } from "react";
 import { InvestorsListContext } from "../../../utilities/context/InvestorsListContext";
+import { useToast } from "@/components/ui/use-toast";
 
 const ActionMenu = ({ investorId }: { investorId: number }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
   const { fetchData } = useContext(InvestorsListContext)!;
+  const { toast } = useToast();
 
   // console.log(investorId);
 
@@ -43,6 +45,9 @@ const ActionMenu = ({ investorId }: { investorId: number }) => {
         }
       );
       console.log(result);
+      toast({
+        description: "Record succesfully deleted",
+      });
       fetchData();
     } catch (error) {
       console.log(`Error: ${error}`);
