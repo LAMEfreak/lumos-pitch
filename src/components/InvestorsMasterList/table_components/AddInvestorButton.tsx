@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useToast } from "@/components/ui/use-toast";
 import * as React from "react";
+import { InvestorsListContext } from "../../../utilities/context/InvestorsListContext";
 
 import {
   Select,
@@ -25,11 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type AddInvestorButtonProps = {
-  fetchData: () => void;
-};
-
-const AddInvestorButton: React.FC<AddInvestorButtonProps> = ({ fetchData }) => {
+const AddInvestorButton = () => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [company, setCompany] = useState("");
@@ -38,6 +35,7 @@ const AddInvestorButton: React.FC<AddInvestorButtonProps> = ({ fetchData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { user, getAccessTokenSilently } = useAuth0();
+  const { fetchData } = useContext(InvestorsListContext)!;
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();

@@ -5,7 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "./pages/ErrorBoundary.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
-import Layout from "./pages/Layout.tsx";
+import MainLayout from "./pages/MainLayout.tsx";
 import { AuthenticationGuard } from "./utilities/AuthenticationGuard.tsx";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/utilities/ThemeProvider.tsx";
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <AuthenticationGuard component={Layout} />,
+    element: <AuthenticationGuard component={MainLayout} />,
     children: [
       {
         path: "/dashboard/overview",

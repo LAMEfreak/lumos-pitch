@@ -1,10 +1,9 @@
-import { Investor, columns } from "./columns";
+import { columns } from "./columns";
 import DataTable from "./DataTable";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AddInvestorButton from "./table_components/AddInvestorButton";
 // import DeleteButton from "./table_components/DeleteButton";
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
+import { InvestorsListContext } from "../../utilities/context/InvestorsListContext";
 
 // async function getData(): Promise<Investor[]> {
 //   return [
@@ -138,10 +137,11 @@ import axios from "axios";
 // }
 
 export const InvestorsMasterList = () => {
-  const { user, getAccessTokenSilently } = useAuth0();
-  const [investorList, setInvestorList] = useState<Investor[]>(
-    [] as Investor[]
-  );
+  const { investorsList, fetchData } = useContext(InvestorsListContext)!;
+
+  // const [investorList, setInvestorList] = useState<Investor[]>(
+  //   [] as Investor[]
+  // );
   // const [parentRowSelection, setParentRowSelection] = useState<
   //   Record<number, boolean>
   // >({});
@@ -152,36 +152,36 @@ export const InvestorsMasterList = () => {
   //   setParentRowSelection(newRowSelection);
   // };
 
-  const fetchData = async () => {
-    // const result = await getData();
-    const token = await getAccessTokenSilently();
-    const auth0Id = user?.sub;
+  // const fetchData = async () => {
+  //   // const result = await getData();
+  //   const token = await getAccessTokenSilently();
+  //   const auth0Id = user?.sub;
 
-    try {
-      const result = await axios.get(
-        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${auth0Id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setInvestorList(result.data);
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  };
+  //   try {
+  //     const result = await axios.get(
+  //       `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${auth0Id}`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     setInvestorList(result.data);
+  //   } catch (error) {
+  //     console.log(`Error: ${error}`);
+  //   }
+  // };
 
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
-    <div className="container relative mx-auto py-2">
+    <div className="container relative mx-auto pt-4 pb-8">
       <h1 className="text-left text-2xl mb-0">Investors</h1>
       <div className="absolute right-8 top-14 flex gap-4">
-        <AddInvestorButton fetchData={fetchData} />
+        <AddInvestorButton />
         {/* <DeleteButton /> */}
       </div>
-      <DataTable columns={columns} data={investorList} opacity-95 />
+      <DataTable columns={columns} data={investorsList} opacity-95 />
     </div>
   );
 };
