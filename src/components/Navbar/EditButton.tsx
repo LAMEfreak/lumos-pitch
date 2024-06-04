@@ -45,10 +45,12 @@ const EditButton = ({
       });
       return;
     }
+
     const body = {
       name,
       industry,
     };
+    
     try {
       const result = await axios.put(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}`,

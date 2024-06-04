@@ -39,7 +39,9 @@ const AddInvestorButton = () => {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-
+    const token = await getAccessTokenSilently();
+    const auth0Id = user?.sub;
+  
     if (!name && !type && !company && !stage && !email) {
       toast({
         variant: "destructive",
@@ -48,9 +50,7 @@ const AddInvestorButton = () => {
       });
       return;
     }
-
-    const token = await getAccessTokenSilently();
-    const auth0Id = user?.sub;
+    
     const body = {
       name,
       type,
@@ -59,6 +59,7 @@ const AddInvestorButton = () => {
       email,
       auth0Id,
     };
+
     try {
       const result = await axios.post(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors`,
@@ -74,12 +75,11 @@ const AddInvestorButton = () => {
       setEmail("");
       setType("");
       setCompany("");
-      fetchData();
       setIsOpen(false);
-
       toast({
         description: "New investor added!",
       });
+      fetchData();
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -102,7 +102,6 @@ const AddInvestorButton = () => {
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(e);
-            setIsOpen(false);
           }}
         >
           <DialogHeader>
