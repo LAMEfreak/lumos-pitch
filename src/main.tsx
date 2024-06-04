@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/utilities/ThemeProvider.tsx";
 import Sessions from "./pages/Sessions.tsx";
 import Dashboard from "./pages/Dashboard";
-import Investors from "./pages/Investors";
+import InvestorsMasterList from "./components/InvestorsMasterList/InvestorsMasterList.tsx";
 import InvestorsListProvider from "./utilities/context/InvestorsListProvider.tsx";
 
 const router = createBrowserRouter([
@@ -27,7 +27,14 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/overview",
         element: <AuthenticationGuard component={Dashboard} />,
+        // children: [
+        //   {
+        //     path: "/dashboard/overview/rounds",
+        //     element: <AuthenticationGuard component={RoundsSection} />,
+        //   },
+        // ],
       },
+
       {
         path: "/dashboard/sessions",
         element: <AuthenticationGuard component={Sessions} />,
@@ -36,7 +43,7 @@ const router = createBrowserRouter([
         path: "/dashboard/investors",
         element: (
           <InvestorsListProvider>
-            <AuthenticationGuard component={Investors} />
+            <AuthenticationGuard component={InvestorsMasterList} />
           </InvestorsListProvider>
         ),
       },

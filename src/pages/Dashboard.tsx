@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import PageLoader from "../utilities/PageLoader";
 import axios from "axios";
 import { useEffect } from "react";
+import RoundsSection from "@/components/Rounds/RoundsSection";
 
 const ToastWithTitle = () => {
   const { toast } = useToast();
@@ -74,7 +75,7 @@ const Dashboard = () => {
 
   return (
     isAuthenticated && (
-      <section className="p-8 flex flex-col items-center align-middle">
+      <section className="p-8 flex flex-col items-center">
         <span className="text-2xl mb-4">Dashboard</span>
         <span className="mt-4">
           {user?.name ? user.name : "No name!!"} is logged in.
@@ -89,6 +90,7 @@ const Dashboard = () => {
         >
           Get 1 investor
         </button>
+        <RoundsSection/>
       </section>
     )
   );
