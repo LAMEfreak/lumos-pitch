@@ -3,8 +3,7 @@ import PageLoader from "../utilities/PageLoader";
 import InvestorsMasterList from "@/components/InvestorsMasterList/InvestorsMasterList";
 
 const Investors = () => {
-  const { user, isLoading, isAuthenticated } = useAuth0();
-  console.log(user);
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return <PageLoader />;

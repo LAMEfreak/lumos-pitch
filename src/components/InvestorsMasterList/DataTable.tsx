@@ -4,16 +4,15 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
+  SortingState,getSortedRowModel,
   ColumnFiltersState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import * as React from "react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
-
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -32,10 +31,13 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     []
   );
-  const [rowSelection, setRowSelection] = React.useState({});
+
+  const [sorting, setSorting] = useState<SortingState>([])
+
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data,
@@ -45,10 +47,13 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
 
     state: {
       columnFilters,
       rowSelection,
+      sorting,
     },
   });
 
@@ -69,6 +74,14 @@ export function DataTable<TData, TValue>({
             value={(table.getColumn("type")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("type")?.setFilterValue(event.target.value)
+            }
+            className="w-30 text-xs"
+          />
+          <Input
+            placeholder="Stage"
+            value={(table.getColumn("stage")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("stage")?.setFilterValue(event.target.value)
             }
             className="w-30 text-xs"
           />
@@ -135,10 +148,10 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-between py-4">
+      <div className="flex items-center justify-between pt-4">
         <div className=" text-sm text-muted-foreground ml-1">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected
+          {/* {table.getFilteredSelectedRowModel().rows.length} of{" "} */}
+          {table.getFilteredRowModel().rows.length} records found
         </div>
         <div className="space-x-2">
           <Button

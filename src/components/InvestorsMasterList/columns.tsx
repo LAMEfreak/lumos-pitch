@@ -1,15 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-
+// import { Checkbox } from "@/components/ui/checkbox";
+import ActionMenu from "./table_components/ActionMenu";
+import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export type Investor = {
   id: number;
@@ -28,11 +21,31 @@ export const columns: ColumnDef<Investor>[] = [
   },
   {
     accessorKey: "type",
-    header: "Type",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "stage",
-    header: "Stage",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Stage
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "company",
@@ -42,57 +55,62 @@ export const columns: ColumnDef<Investor>[] = [
     accessorKey: "email",
     header: "Email",
   },
-  // {
-  //   accessorKey: "updatedAt",
-  //   header: "Updated",
-  // },
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    accessorKey: "updatedAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Updated
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorFn: (originalRow: { updatedAt: string }) => originalRow.updatedAt,
+    cell: ({ row }) => {
+      const { updatedAt } = row.original;
+      const date = new Date(updatedAt); // Convert updatedAt to a Date object
+      return (
+        <div>
+          {date.toLocaleDateString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+          })}
+        </div>
+      );
+    },
   },
+  // ADD CHECKBOX TO SELECT ROWS
+  // {
+  //   id: "select",
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  // },
   {
     header: "Actions",
     id: "actions",
     cell: ({ row }) => {
-      const investor = row.original;
+      const { id } = row.original;
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(investor.name)}
-            >
-              Edit{" "}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="dark:hover:bg-red-900">
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <ActionMenu investorId={id} />;
     },
   },
 ];

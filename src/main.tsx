@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/utilities/ThemeProvider.tsx";
 import Sessions from "./pages/Sessions.tsx";
 import Dashboard from "./pages/Dashboard";
 import Investors from "./pages/Investors";
+import InvestorsListProvider from "./utilities/context/InvestorsListProvider.tsx";
 
 const router = createBrowserRouter([
   {
@@ -52,8 +53,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RouterProvider router={router} />
-        <Toaster />
+        <InvestorsListProvider>
+          <RouterProvider router={router} />
+          <Toaster />
+        </InvestorsListProvider>
       </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>

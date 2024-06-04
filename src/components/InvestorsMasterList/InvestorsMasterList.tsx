@@ -2,7 +2,7 @@ import { Investor, columns } from "./columns";
 import DataTable from "./DataTable";
 import { useEffect, useState } from "react";
 import AddInvestorButton from "./table_components/AddInvestorButton";
-import DeleteButton from "./table_components/DeleteButton";
+// import DeleteButton from "./table_components/DeleteButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
@@ -142,6 +142,15 @@ export const InvestorsMasterList = () => {
   const [investorList, setInvestorList] = useState<Investor[]>(
     [] as Investor[]
   );
+  // const [parentRowSelection, setParentRowSelection] = useState<
+  //   Record<number, boolean>
+  // >({});
+
+  // const handleRowSelectionChange = (
+  //   newRowSelection: Record<number, boolean>
+  // ) => {
+  //   setParentRowSelection(newRowSelection);
+  // };
 
   const fetchData = async () => {
     // const result = await getData();
@@ -166,13 +175,13 @@ export const InvestorsMasterList = () => {
   }, []);
 
   return (
-    <div className="container relative mx-auto py-4">
+    <div className="container relative mx-auto py-2">
       <h1 className="text-left text-2xl mb-0">Investors</h1>
-      <div className="absolute right-8 top-16 flex gap-4">
+      <div className="absolute right-8 top-14 flex gap-4">
         <AddInvestorButton fetchData={fetchData} />
-        <DeleteButton />
+        {/* <DeleteButton /> */}
       </div>
-      <DataTable columns={columns} data={investorList} />
+      <DataTable columns={columns} data={investorList} opacity-95 />
     </div>
   );
 };
