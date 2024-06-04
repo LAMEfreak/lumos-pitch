@@ -166,7 +166,7 @@ const AddInvestorButton = () => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <Label htmlFor="company" className="text-right">
+              <Label htmlFor="email" className="text-right">
                 Email
               </Label>
               <Input
@@ -179,13 +179,7 @@ const AddInvestorButton = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
-            >
-              Add Record
-            </Button>
+            <Button type="submit">Add Record</Button>
           </DialogFooter>
         </form>
       </DialogContent>

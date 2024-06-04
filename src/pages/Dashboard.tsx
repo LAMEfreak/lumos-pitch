@@ -52,48 +52,6 @@ const Dashboard = () => {
     sendAuth0Id();
   }, [getAccessTokenSilently, user?.sub, user?.email]);
 
-  const postData = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      const body = {
-        name: "German",
-        type: "Angel",
-        company: "test",
-        stage: "Series A",
-        email: "fofo@gmail.com",
-        auth0Id: user?.sub,
-      };
-      const post = await axios.post(
-        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors`,
-        body,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(post);
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  };
-
-  const deleteOne = async () => {
-    const investorToDelete = 3;
-    try {
-      const token = await getAccessTokenSilently();
-      const result = await axios.delete(
-        `${
-          import.meta.env.VITE_SOME_BACKEND_SERVER
-        }/investors/${investorToDelete}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(result);
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  }; 
-
   const getOne = async () => {
     const investorId = 2;
     try {
@@ -105,45 +63,6 @@ const Dashboard = () => {
         }
       );
       console.log(result);
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  };
-
-  const getAll = async () => {
-    try {
-      const token = await getAccessTokenSilently();
-      const result = await axios.get(
-        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${user?.sub}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(result);
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  };
-
-  const editOne = async () => {
-    const investorId = 3;
-    try {
-      const token = await getAccessTokenSilently();
-      const body = {
-        name: "Koko",
-        type: "VC",
-        company: "test",
-        stage: "Series A",
-        email: "koko@gmail.com",
-      };
-      const post = await axios.put(
-        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${investorId}`,
-        body,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(post);
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -161,22 +80,7 @@ const Dashboard = () => {
           {user?.name ? user.name : "No name!!"} is logged in.
         </span>
         <ToastWithTitle />
-        <button
-          onClick={() => {
-            postData();
-          }}
-          className="p-2 bg-blue-800 mb-4"
-        >
-          Create an investor
-        </button>
-        <button
-          onClick={() => {
-            deleteOne();
-          }}
-          className="p-2 bg-blue-800 mb-4"
-        >
-          Delete investor
-        </button>
+
         <button
           onClick={() => {
             getOne();
@@ -184,22 +88,6 @@ const Dashboard = () => {
           className="p-2 bg-blue-800 mb-4"
         >
           Get 1 investor
-        </button>
-        <button
-          onClick={() => {
-            getAll();
-          }}
-          className="p-2 bg-blue-800 mb-4"
-        >
-          Get all investors tied to the user
-        </button>
-        <button
-          onClick={() => {
-            editOne();
-          }}
-          className="p-2 bg-blue-800 mb-4"
-        >
-          Edit 1 investor{" "}
         </button>
       </section>
     )

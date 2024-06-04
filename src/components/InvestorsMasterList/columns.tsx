@@ -108,9 +108,9 @@ export const columns: ColumnDef<Investor>[] = [
     header: "Actions",
     id: "actions",
     cell: ({ row }) => {
-      const { id } = row.original;
+      const investor = row.original;
 
-      return <ActionMenu investorId={id} />;
+      return <ActionMenu investor={investor} />;
     },
   },
 ];

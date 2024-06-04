@@ -5,8 +5,7 @@ import NavBar from "@/components/Navbar/NavBar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-  const { user, isLoading, isAuthenticated } = useAuth0();
-  console.log(user);
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return <PageLoader />;

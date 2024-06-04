@@ -2,8 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import PageLoader from "../utilities/PageLoader";
 
 const Sessions = () => {
-  const { user, isLoading, isAuthenticated } = useAuth0();
-  console.log(user);
+  const { isLoading, isAuthenticated } = useAuth0();
 
   if (isLoading) {
     return <PageLoader />;

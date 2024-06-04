@@ -4,7 +4,8 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-  SortingState,getSortedRowModel,
+  SortingState,
+  getSortedRowModel,
   ColumnFiltersState,
   getFilteredRowModel,
 } from "@tanstack/react-table";
@@ -31,11 +32,9 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  );
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const [sorting, setSorting] = useState<SortingState>([])
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const [rowSelection, setRowSelection] = useState({});
 
@@ -60,7 +59,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex py-4">
-        <div className="flex gap-4 w-1/2 items-center">
+        <div className="flex gap-4 items-center">
           <Input
             placeholder="Name"
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -86,8 +85,8 @@ export function DataTable<TData, TValue>({
             className="w-30 text-xs"
           />
           <X
-            className="text-gray-400 cursor-pointer"
-            size={20}
+            className="text-gray-600 cursor-pointer"
+            size={18}
             onClick={() => setColumnFilters([])}
           >
             Clear

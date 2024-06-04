@@ -34,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/investors",
-        element: <AuthenticationGuard component={Investors} />,
+        element: (
+          <InvestorsListProvider>
+            <AuthenticationGuard component={Investors} />
+          </InvestorsListProvider>
+        ),
       },
     ],
   },
@@ -53,10 +57,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <InvestorsListProvider>
-          <RouterProvider router={router} />
-          <Toaster />
-        </InvestorsListProvider>
+        <RouterProvider router={router} />
+        <Toaster />
       </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>

@@ -16,7 +16,7 @@ const LogoutButton = () => {
     <Button
       variant="outline"
       size="icon"
-      className="rounded-full bg-red-100 dark:hover:bg-red-900 hover:bg-red-200 hover:border-red-200"
+      className="rounded-full bg-red-100 dark:hover:bg-red-800 hover:bg-red-200 hover:border-red-200"
       onClick={handleLogout}
     >
       <LogOut size={18} />
