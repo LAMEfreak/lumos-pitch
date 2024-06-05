@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
+import RoundProps from "../RoundsSection";
 
 import {
   DropdownMenu,
@@ -43,25 +44,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const ManageRounds = ({ currentRound, setCurrentRound }) => {
+const ManageRounds = ({
+  selectedRound,
+}: {
+  selectedRound: typeof RoundProps;
+}) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { user, getAccessTokenSilently } = useAuth0();
   const { toast } = useToast();
 
-  const {
-    name: currentName,
-    stage: currentStage,
-    target: currentTarget,
-    description: currentDescription,
-  } = currentRound;
+  console.log(selectedRound, "selectedRound at ManageButton level");
 
-  console.log(currentRound);
-
-  const [name, setName] = useState(currentName);
-  const [target, setTarget] = useState(currentTarget);
-  const [description, setDescription] = useState(currentDescription);
-  const [stage, setStage] = useState(currentStage);
+  const [name, setName] = useState(selectedRound?.name);
+  const [target, setTarget] = useState(selectedRound?.target);
+  const [description, setDescription] = useState(selectedRound?.description);
+  const [stage, setStage] = useState(selectedRound?.stage);
 
   const fetchRound = async (id: number) => {
     const token = await getAccessTokenSilently();
@@ -74,7 +72,7 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setCurrentRound(response.data);
+      // setCurrentRound(response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -96,7 +94,7 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
       toast({
         description: "Round succesfully deleted",
       });
-      fetchRound(currentRound.id);
+      // getAllRounds();
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -124,18 +122,18 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
       toast({
         description: "Round details succesfully updated",
       });
-      fetchRound(currentRound.id);
+      // fetchRound(currentRound.id);
     } catch (error) {
       console.log(`Error: ${error}`);
     }
   };
 
   useEffect(() => {
-    setName(currentRound.name);
-    setTarget(currentRound.target);
-    setDescription(currentRound.description);
-    setStage(currentRound.stage);
-  }, [currentRound]); // Listen for changes in currentRound
+    setName(selectedRound?.name);
+    setTarget(selectedRound?.target);
+    setDescription(selectedRound?.description);
+    setStage(selectedRound?.stage);
+  }, [selectedRound]); // Listen for changes in currentRound
 
   return (
     <AlertDialog
@@ -201,11 +199,9 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
               type="number"
               min="0"
               placeholder="Enter round target size"
-              onChange={(e) => setTarget(e.target.value)}
+              onChange={(e) => setTarget(Number(e.target.value))}
             />
-            <Label htmlFor="stage" className="">
-              Funding Stage
-            </Label>
+            <Label htmlFor="stage">Funding Stage</Label>
             <Select value={stage} onValueChange={(value) => setStage(value)}>
               <SelectTrigger className="w-w-full col-span-3 mt-2">
                 <SelectValue placeholder="Stage" />
@@ -225,7 +221,7 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
                 variant="outline"
                 size="default"
                 className=" dark:bg-blue-700 dark:hover:bg-blue-800 mt-10 w-full"
-                onClick={() => editRecord(currentRound.id)}
+                onClick={() => editRecord(selectedRound.id)}
               >
                 Add Round
               </Button>
@@ -236,7 +232,7 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
       {isDeleteDialogOpen && (
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{`Delete ${currentRound.name}?`}</AlertDialogTitle>
+            <AlertDialogTitle>{`Delete?`}</AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you wish to delete this funding round? All details
               and tagged investors will be removed.
@@ -246,7 +242,8 @@ const ManageRounds = ({ currentRound, setCurrentRound }) => {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                deleteRecord(currentRound.id);
+                console.log(`deleted ${selectedRound.name}`);
+                deleteRecord(selectedRound.id);
               }}
               className="dark:bg-red-900 dark:hover:bg-red-700/90 dark:text-slate-50"
             >

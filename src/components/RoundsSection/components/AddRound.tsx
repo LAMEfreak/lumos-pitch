@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const AddRound = () => {
+const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [target, setTarget] = useState("");
@@ -69,6 +69,9 @@ const AddRound = () => {
       toast({
         title: `${name} created`,
       });
+      getAllRounds();
+      console.log(`Round added and getAllRoubds called`);
+      
     } catch (error) {
       console.log(`Error: ${error}`);
     }
