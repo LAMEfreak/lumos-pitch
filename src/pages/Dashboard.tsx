@@ -108,7 +108,6 @@ const Dashboard = () => {
       <section className="p-8 flex flex-col items-center container">
         <div className="flex justify-between w-full mb-6">
           <h1 className="text-2xl mb-0">Dashboard</h1>
-          {allRounds.length}
           <AddRound getAllRounds={getAllRounds} />
         </div>
         <RoundsSection allRounds={allRounds} getAllRounds={getAllRounds} />

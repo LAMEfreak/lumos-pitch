@@ -1,3 +1,12 @@
+export interface SelectedRoundProps {
+  stage: string;
+  target: number;
+  name: string;
+  description: string;
+  id: number;
+  startupId: number;
+}
+
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
@@ -5,7 +14,6 @@ import { Label } from "@/components/ui/label";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
-import RoundProps from "../RoundsSection";
 
 import {
   DropdownMenu,
@@ -46,8 +54,10 @@ import {
 
 const ManageRounds = ({
   selectedRound,
+  getAllRounds,
 }: {
-  selectedRound: typeof RoundProps;
+  selectedRound: SelectedRoundProps;
+  getAllRounds: () => void;
 }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -60,24 +70,6 @@ const ManageRounds = ({
   const [target, setTarget] = useState(selectedRound?.target);
   const [description, setDescription] = useState(selectedRound?.description);
   const [stage, setStage] = useState(selectedRound?.stage);
-
-  const fetchRound = async (id: number) => {
-    const token = await getAccessTokenSilently();
-    const auth0Id = user?.sub;
-
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      // setCurrentRound(response.data);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const deleteRecord = async (id: number) => {
     try {
@@ -94,7 +86,7 @@ const ManageRounds = ({
       toast({
         description: "Round succesfully deleted",
       });
-      // getAllRounds();
+      getAllRounds();
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -122,7 +114,7 @@ const ManageRounds = ({
       toast({
         description: "Round details succesfully updated",
       });
-      // fetchRound(currentRound.id);
+      getAllRounds();
     } catch (error) {
       console.log(`Error: ${error}`);
     }

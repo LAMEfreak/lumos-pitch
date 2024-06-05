@@ -48,9 +48,7 @@ const RoundsSection = ({
     <main className="flex flex-col w-full">
       <section className="border dark:bg-gradient-to-br from-[#020417] to-[#2b021a] relative flex flex-col text-left p-10 rounded-lg">
         <div className="absolute right-10 top-9">
-          {allRounds.length}
           <div className="flex gap-4">
-            <p>{selectedRound?.name}</p>
             <Select
               value={value}
               onValueChange={(value) => {
@@ -74,7 +72,10 @@ const RoundsSection = ({
                 })}
               </SelectContent>
             </Select>
-            <ManageRounds selectedRound={selectedRound} />
+            <ManageRounds
+              selectedRound={selectedRound}
+              getAllRounds={getAllRounds}
+            />
           </div>
         </div>
         <div className="flex items-center">
@@ -86,13 +87,13 @@ const RoundsSection = ({
         <p className="mt-6 line-clamp-2 dark:text-gray-500 max-w-[70ch]">
           {selectedRound?.description}
         </p>
-        <div className="grid gap-10 mt-10 grid-col-2 lg:grid-cols-4">
-          <div className="dark:bg-green-900 dark:bg-opacity-40 rounded-md py-4 px-6">
+        <div className="grid gap-8 mt-10 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4">
+          <div className="dark:bg-green-900 dark:border-green-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
             <div className="flex justify-between items-center dark:text-gray-600">
               <p className="text-md dark:text-green-500 font-medium">Raised</p>
               <Target size={24} />
             </div>
-            <p className="text-4xl mt-6 font-semibold mb-4">
+            <p className="text-3xl mt-6 font-semibold mb-2">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -102,14 +103,14 @@ const RoundsSection = ({
             </p>
             {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-blue-900 dark:bg-opacity-40 rounded-md py-4 px-6">
+          <div className="dark:bg-blue-900 dark:border-blue-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
             <div className="flex justify-between items-center dark:text-gray-600">
               <p className="text-md dark:text-blue-400 font-medium">
                 Committed
               </p>
               <Target size={24} />
             </div>
-            <p className="text-4xl mt-6 font-semibold mb-4">
+            <p className="text-3xl mt-6 font-semibold mb-2">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -119,14 +120,14 @@ const RoundsSection = ({
             </p>
             {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-fuchsia-900 dark:bg-opacity-40 rounded-md py-4 px-6">
+          <div className="dark:bg-fuchsia-900 dark:border-fuchsia-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
             <div className="flex justify-between items-center dark:text-gray-600">
               <p className="text-md dark:text-fuchsia-400 font-medium">
                 Target Size
               </p>
               <Target size={24} />
             </div>
-            <p className="text-4xl mt-6 font-semibold mb-4">
+            <p className="text-3xl mt-6 font-semibold mb-2">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -136,15 +137,14 @@ const RoundsSection = ({
             </p>
             {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-cyan-900 dark:bg-opacity-40 rounded-md py-4 px-6">
+          <div className="dark:bg-cyan-900 dark:border-cyan-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
             <div className="flex justify-between items-center dark:text-gray-600">
               <p className="text-md dark:text-cyan-400 font-medium">
                 Investors
               </p>
               <Target size={24} />
             </div>
-            <p className="text-4xl mt-6 font-semibold mb-4">12</p>
-            {/* <p>{investorCount}</p> */}
+            <p className="text-3xl mt-6 font-semibold mb-2">12</p>
           </div>
         </div>
       </section>
