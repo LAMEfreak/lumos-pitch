@@ -7,7 +7,7 @@ const HomeButton = () => {
     <NavLink
       to={"/dashboard/overview"}
       className={({ isActive }) => {
-        return isActive ? "text-indigo-700 dark:text-indigo-300" : "null";
+        return isActive ? "text-indigo-700 dark:text-indigo-400" : "null";
       }}
     >
       <Button

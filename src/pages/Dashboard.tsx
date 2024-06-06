@@ -1,9 +1,16 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import PageLoader from "../utilities/PageLoader";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import RoundsSection from "@/components/RoundsSection/RoundsSection";
 import AddRound from "@/components/RoundsSection/components/AddRound";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export interface RoundProps {
   stage: string;
@@ -14,10 +21,15 @@ export interface RoundProps {
   startupId: number;
 }
 
+export type NullableRoundProps = RoundProps | null;
+
 const Dashboard = () => {
-  const { user, isLoading, isAuthenticated, getAccessTokenSilently } =
-    useAuth0();
-  const [allRounds, setAllRounds] = useState<RoundProps[]>([]);
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [allRounds, setAllRounds] = useState<NullableRoundProps[]>([]);
+  const [value, setValue] = useState("");
+  const [selectedRound, setSelectedRound] = useState<NullableRoundProps>(
+    allRounds[0] || null
+  );
 
   const getAllRounds = async () => {
     const auth0Id = user?.sub;
@@ -93,24 +105,74 @@ const Dashboard = () => {
     };
 
     sendAuth0Id();
-  }, [getAccessTokenSilently, user?.sub, user?.email]);
+  }, []);
 
   useEffect(() => {
     getAllRounds();
   }, []);
 
-  if (isLoading) {
-    return <PageLoader />;
-  }
+  useEffect(() => {
+    if (allRounds.length > 0) {
+      setSelectedRound(allRounds[0]);
+      // Provide a default value of an empty string if allRounds[0]?.name is undefined
+      setValue(allRounds[0]?.name || "");
+
+      // console.log(allRounds, `Dashboard level`);
+      // console.log(`Selected round name`, value);
+      // console.log(`Selected round details`, selectedRound);
+    }
+  }, [allRounds]);
 
   return (
     isAuthenticated && (
       <section className="p-8 flex flex-col items-center container">
-        <div className="flex justify-between w-full mb-6">
+        <div className="flex justify-between align-middle w-full -mt-2">
           <h1 className="text-2xl mb-0">Dashboard</h1>
-          <AddRound getAllRounds={getAllRounds} />
+          <div className="flex gap-4">
+            <Select
+              value={value}
+              onValueChange={(value) => {
+                setValue(value);
+                setSelectedRound(
+                  allRounds.find((round) => round?.name === value) ?? null
+                );
+              }}
+              disabled={allRounds.length === 0}
+            >
+              <SelectTrigger className="w-[220px] focus:ring-0 focus:ring-offset-0">
+                <SelectValue placeholder={"Select round"} />
+              </SelectTrigger>
+              <SelectContent>
+                {allRounds.map((round) => {
+                  return (
+                    <SelectItem
+                      value={round?.name || "No rounds"}
+                      key={round?.id}
+                    >
+                      {round?.name}
+                    </SelectItem>
+                  );
+                })}
+              </SelectContent>
+            </Select>
+            <AddRound getAllRounds={getAllRounds} />
+          </div>
         </div>
-        <RoundsSection allRounds={allRounds} getAllRounds={getAllRounds} />
+        <Tabs defaultValue="overview" className="w-full flex flex-col my-6">
+          <div className="self-start mb-4">
+            <TabsList>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="investors">Investors</TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="overview">
+            <RoundsSection
+              selectedRound={selectedRound}
+              getAllRounds={getAllRounds}
+            />
+          </TabsContent>
+          <TabsContent value="investors">{"123"}</TabsContent>
+        </Tabs>
       </section>
     )
   );

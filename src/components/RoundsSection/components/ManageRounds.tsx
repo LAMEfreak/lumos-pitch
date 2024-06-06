@@ -1,12 +1,4 @@
-export interface SelectedRoundProps {
-  stage: string;
-  target: number;
-  name: string;
-  description: string;
-  id: number;
-  startupId: number;
-}
-
+import { NullableRoundProps } from "../../../pages/Dashboard";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
@@ -56,7 +48,7 @@ const ManageRounds = ({
   selectedRound,
   getAllRounds,
 }: {
-  selectedRound: SelectedRoundProps;
+  selectedRound: NullableRoundProps;
   getAllRounds: () => void;
 }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -64,7 +56,7 @@ const ManageRounds = ({
   const { user, getAccessTokenSilently } = useAuth0();
   const { toast } = useToast();
 
-  console.log(selectedRound, "selectedRound at ManageButton level");
+  console.log("ManageButton level", selectedRound);
 
   const [name, setName] = useState(selectedRound?.name);
   const [target, setTarget] = useState(selectedRound?.target);
@@ -213,7 +205,7 @@ const ManageRounds = ({
                 variant="outline"
                 size="default"
                 className=" dark:bg-blue-700 dark:hover:bg-blue-800 mt-10 w-full"
-                onClick={() => editRecord(selectedRound.id)}
+                onClick={() => editRecord(selectedRound!.id)}
               >
                 Update Round
               </Button>
@@ -234,8 +226,8 @@ const ManageRounds = ({
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                console.log(`deleted ${selectedRound.name}`);
-                deleteRecord(selectedRound.id);
+                console.log(`deleted ${selectedRound?.name}`);
+                deleteRecord(selectedRound!.id);
               }}
               className="dark:bg-red-900 dark:hover:bg-red-700/90 dark:text-slate-50"
             >

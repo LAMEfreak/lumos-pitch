@@ -7,7 +7,7 @@ const SessionsButton = () => {
     <NavLink
       to={"/dashboard/sessions"}
       className={({ isActive }) => {
-        return isActive ? "text-indigo-700 dark:text-indigo-300" : "null";
+        return isActive ? "text-indigo-700 dark:text-indigo-400" : "null";
       }}
     >
       <Button variant="outline" size="icon" className="rounded-full">

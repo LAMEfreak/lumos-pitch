@@ -1,77 +1,22 @@
-export interface RoundProps {
-  stage: string;
-  target: number;
-  name: string;
-  description: string;
-  id: number;
-  startupId: number;
-}
-
-import { useEffect, useState } from "react";
+import { NullableRoundProps } from "../../pages/Dashboard";
 import { Target } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import ManageRounds from "./components/ManageRounds";
 
 const RoundsSection = ({
   getAllRounds,
-  allRounds,
+  selectedRound,
 }: {
   getAllRounds: () => void;
-  allRounds: RoundProps[];
+  selectedRound: NullableRoundProps;
 }) => {
-  const [value, setValue] = useState("");
-  const [selectedRound, setSelectedRound] = useState<RoundProps | null>(null);
 
-  // console.log(allRounds, "section level");
-  // console.log("value", value);
   // console.log("selectedRound at roundsSectionlevel", selectedRound);
-
-  useEffect(() => {
-    // setCurrentRound(allRounds[0]);
-    getAllRounds();
-  }, []);
-
-  useEffect(() => {
-    if (allRounds.length > 0) {
-      setSelectedRound(allRounds[0]);
-      setValue(allRounds[0]?.name);
-    }
-  }, [allRounds]);
 
   return (
     <main className="flex flex-col w-full">
       <section className="border dark:bg-gradient-to-br from-[#020417] to-[#2b021a] relative flex flex-col text-left p-10 rounded-lg">
         <div className="absolute right-10 top-9">
           <div className="flex gap-4">
-            <Select
-              value={value}
-              onValueChange={(value) => {
-                setValue(value);
-                setSelectedRound(
-                  allRounds.find((round) => round.name === value) ?? null
-                );
-              }}
-              disabled={allRounds.length === 0}
-            >
-              <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0">
-                <SelectValue placeholder={"Select round"} />
-              </SelectTrigger>
-              <SelectContent>
-                {allRounds.map((round) => {
-                  return (
-                    <SelectItem value={round.name} key={round.id}>
-                      {round.name}
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
             <ManageRounds
               selectedRound={selectedRound}
               getAllRounds={getAllRounds}
@@ -133,7 +78,7 @@ const RoundsSection = ({
                 currency: "USD",
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0,
-              }).format(selectedRound?.target)}
+              }).format(selectedRound?.target || 0)}
             </p>
             {/* <p>{investorCount}</p> */}
           </div>

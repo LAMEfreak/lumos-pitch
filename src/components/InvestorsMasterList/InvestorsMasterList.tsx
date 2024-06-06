@@ -175,10 +175,10 @@ export const InvestorsMasterList = () => {
   }, []);
 
   return (
-    <section className="flex flex-col items-center p-2 align-middle">
-      <div className="container relative mx-auto pt-4 pb-8">
-        <h1 className="text-left text-2xl mb-0">Investors</h1>
-        <div className="absolute right-8 top-16 flex gap-4">
+    <section className="flex flex-col items-center mt-6 align-middle">
+      <div className="container relative mx-auto pb-8">
+        <h1 className="text-2xl mb-0 text-left">Investors</h1>
+        <div className="absolute right-8 top-12 flex gap-4">
           <AddInvestorButton />
           {/* <DeleteButton /> */}
         </div>
