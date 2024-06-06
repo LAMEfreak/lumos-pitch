@@ -123,8 +123,58 @@ const Dashboard = () => {
     }
   }, [allRounds]);
 
-  return (
-    isAuthenticated && (
+  return isAuthenticated && selectedRound ? (
+    <section className="p-8 flex flex-col items-center container">
+      <div className="flex justify-between align-middle w-full -mt-2">
+        <h1 className="text-2xl mb-0">Dashboard</h1>
+        <div className="flex gap-4">
+          <Select
+            value={value}
+            onValueChange={(value) => {
+              setValue(value);
+              setSelectedRound(
+                allRounds.find((round) => round?.name === value) ?? null
+              );
+            }}
+            disabled={allRounds.length === 0}
+          >
+            <SelectTrigger className="w-[220px] focus:ring-0 focus:ring-offset-0">
+              <SelectValue placeholder={"Select round"} />
+            </SelectTrigger>
+            <SelectContent>
+              {allRounds.map((round) => {
+                return (
+                  <SelectItem
+                    value={round?.name || "No rounds"}
+                    key={round?.id}
+                  >
+                    {round?.name}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+          <AddRound getAllRounds={getAllRounds} />
+        </div>
+      </div>
+      <Tabs defaultValue="overview" className="w-full flex flex-col my-6">
+        <div className="self-start mb-4">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="investors">Investors</TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="overview">
+          <RoundsSection
+            selectedRound={selectedRound}
+            getAllRounds={getAllRounds}
+          />
+        </TabsContent>
+        <TabsContent value="investors">{"123"}</TabsContent>
+      </Tabs>
+    </section>
+  ) : (
+    <div>
       <section className="p-8 flex flex-col items-center container">
         <div className="flex justify-between align-middle w-full -mt-2">
           <h1 className="text-2xl mb-0">Dashboard</h1>
@@ -158,23 +208,15 @@ const Dashboard = () => {
             <AddRound getAllRounds={getAllRounds} />
           </div>
         </div>
-        <Tabs defaultValue="overview" className="w-full flex flex-col my-6">
-          <div className="self-start mb-4">
-            <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="investors">Investors</TabsTrigger>
-            </TabsList>
-          </div>
-          <TabsContent value="overview">
-            <RoundsSection
-              selectedRound={selectedRound}
-              getAllRounds={getAllRounds}
-            />
-          </TabsContent>
-          <TabsContent value="investors">{"123"}</TabsContent>
-        </Tabs>
       </section>
-    )
+      <div className="">
+        <div className="border-dashed border-2 border-gray-800 mx-8 py-64 rounded-lg text bg-opacity-5 bg-blue-900">
+          <p className="px-6 py-4 rounded-xl bg-gray-900 text-gray-400 inline">
+            Add investors or a new funding round
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 export default Dashboard;
