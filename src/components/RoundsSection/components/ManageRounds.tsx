@@ -215,7 +215,7 @@ const ManageRounds = ({
                 className=" dark:bg-blue-700 dark:hover:bg-blue-800 mt-10 w-full"
                 onClick={() => editRecord(selectedRound.id)}
               >
-                Add Round
+                Update Round
               </Button>
             </SheetClose>
           </SheetContent>
