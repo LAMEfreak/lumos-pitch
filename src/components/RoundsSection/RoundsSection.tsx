@@ -28,14 +28,17 @@ const RoundsSection = ({
   >(null);
   const [progress, setProgress] = useState(0);
 
+  // To resolve if DB issue can be solved
   const totalRaised = currentRoundInvestors?.reduce((acc, investor) => {
-    return acc + investor.raised;
+    return acc + Number(investor.raised);
   }, 0);
 
   const totalCommitted = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + investor.committed;
   }, 0);
 
+  console.log(currentRoundInvestors);
+  
   const calculateProgressBar =
     ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100;
 
@@ -91,10 +94,15 @@ const RoundsSection = ({
         <div className="my-8 flex items-center">
           <Progress
             value={progress}
-            className="w-[20%] dark:bg-gray-900"
+            className="w-[30%] dark:bg-gray-900"
             max={selectedRound?.target}
           />
-          <p className="ml-4 font-semibold">{calculateProgressBar}% of target raised</p>
+          <p className="ml-6 text-gray-500">
+            <span className="font-semibold dark:text-green-400 text-xl mr-1">
+              {calculateProgressBar}%
+            </span>{" "}
+            of target raised
+          </p>
         </div>
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4">
           <div className="dark:bg-green-900 dark:border-green-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
