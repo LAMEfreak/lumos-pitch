@@ -1,6 +1,17 @@
 import { NullableRoundProps } from "../../pages/Dashboard";
 import { Target } from "lucide-react";
 import ManageRounds from "./components/ManageRounds";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+
+interface InvestorProps {
+  id: number;
+  committed: number;
+  raised: number;
+  investorId: number;
+  roundId: number;
+}
 
 const RoundsSection = ({
   getAllRounds,
@@ -9,8 +20,43 @@ const RoundsSection = ({
   getAllRounds: () => void;
   selectedRound: NullableRoundProps;
 }) => {
-
   // console.log("selectedRound at roundsSectionlevel", selectedRound);
+  const { user, getAccessTokenSilently } = useAuth0();
+  const [currentRoundInvestors, setCurrentRoundInvestors] = useState<
+    InvestorProps[] | null
+  >(null);
+
+  const totalRaised = currentRoundInvestors?.reduce((acc, investor) => {
+    return acc + investor.raised;
+  }, 0);
+
+  const totalCommitted = currentRoundInvestors?.reduce((acc, investor) => {
+    return acc + investor.committed;
+  }, 0);
+
+  const getRoundInvestors = async () => {
+    const auth0Id = user?.sub;
+    const token = await getAccessTokenSilently();
+    try {
+      const response = await axios.get(
+        `${
+          import.meta.env.VITE_SOME_BACKEND_SERVER
+        }/startup/${auth0Id}/roundInvestors/${selectedRound?.id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setCurrentRoundInvestors(response.data);
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    getRoundInvestors();
+  }, [selectedRound?.id]);
+
+  console.log(currentRoundInvestors);
 
   return (
     <main className="flex flex-col w-full">
@@ -44,7 +90,7 @@ const RoundsSection = ({
                 currency: "USD",
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0,
-              }).format(0)}
+              }).format(totalRaised || 0)}
             </p>
             {/* <p>{investorCount}</p> */}
           </div>
@@ -61,7 +107,7 @@ const RoundsSection = ({
                 currency: "USD",
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0,
-              }).format(0)}
+              }).format(totalCommitted || 0)}
             </p>
             {/* <p>{investorCount}</p> */}
           </div>

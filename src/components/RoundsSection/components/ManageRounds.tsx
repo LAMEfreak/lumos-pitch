@@ -56,7 +56,7 @@ const ManageRounds = ({
   const { user, getAccessTokenSilently } = useAuth0();
   const { toast } = useToast();
 
-  console.log("ManageButton level", selectedRound);
+  // console.log("ManageButton level", selectedRound);
 
   const [name, setName] = useState(selectedRound?.name);
   const [target, setTarget] = useState(selectedRound?.target);
@@ -129,10 +129,10 @@ const ManageRounds = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
+            variant="outline"
             className="dark:active-border-transparent dark:focus:ring-0 dark:focus:ring-offset-0"
           >
-            Manage
+            Manage Round
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
