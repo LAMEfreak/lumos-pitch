@@ -5,6 +5,7 @@ import { RoundProps } from "@/pages/Dashboard";
 // import { useGetRoundInvestors } from "./useGetRoundInvestors";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import TagInvestorButton from "./TagInvestorButton";
 
 
 export const RoundInvestorsSection = ({
@@ -47,7 +48,8 @@ export const RoundInvestorsSection = ({
   // console.log(currentRoundInvestors, "INVESTORSROUND");
 
   return (
-    <main className="relative mx-auto mt-4">
+    <main className="relative flex flex-col mx-auto mt-4">
+      <TagInvestorButton/>
       <DataTable columns={columns} data={currentRoundInvestors} />
     </main>
   );
