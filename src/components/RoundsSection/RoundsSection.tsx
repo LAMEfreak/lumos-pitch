@@ -38,7 +38,7 @@ const RoundsSection = ({
   const totalRaised = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + Number(investor.raised);
   }, 0);
-
+   
   const totalCommitted = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + investor.committed;
   }, 0);

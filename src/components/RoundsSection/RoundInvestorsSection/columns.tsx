@@ -48,6 +48,17 @@ export const columns: ColumnDef<RoundInvestor>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("raised"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        currency: "USD",
+      }).format(amount);
+
+      return <div>{formatted}</div>;
+    },
     accessorFn: (row: RoundInvestor | null) =>
       row && row.raised ? row.raised : "-",
   },
@@ -63,6 +74,17 @@ export const columns: ColumnDef<RoundInvestor>[] = [
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("committed"));
+      const formatted = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        currency: "USD",
+      }).format(amount);
+
+      return <div>{formatted}</div>;
     },
     accessorFn: (row: RoundInvestor | null) =>
       row && row.committed ? row.committed : "-",

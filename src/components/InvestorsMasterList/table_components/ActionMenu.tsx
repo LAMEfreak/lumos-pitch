@@ -1,11 +1,10 @@
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import { useContext } from "react";
 import { InvestorsListContext } from "../../../utilities/context/InvestorsListContext";
 import { useToast } from "@/components/ui/use-toast";
 

@@ -17,7 +17,7 @@ const Layout = () => {
         <SidePanel />
         <div className="flex ml-20 flex-col size-full">
           <NavBar />
-          <main className="h-full mt-16">
+          <main className="size-full  mt-16">
             <Outlet />
           </main>
         </div>

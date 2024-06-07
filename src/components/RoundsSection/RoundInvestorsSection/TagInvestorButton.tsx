@@ -1,4 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { RoundInvestor } from "./columns";
+
+import { Investor } from "../../InvestorsMasterList/columns";
 import {
   Dialog,
   DialogContent,
@@ -10,11 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useToast } from "@/components/ui/use-toast";
-import * as React from "react";
+import { InvestorsListContext } from "../../../utilities/context/InvestorsListContext";
 
 import {
   Select,
@@ -25,20 +28,29 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const TagInvestorButton = () => {
+const TagInvestorButton = ({
+  selectedRoundId,
+}: {
+  selectedRoundId: number;
+}) => {
   const [raised, setRaised] = useState(0);
   const [committed, setCommitted] = useState(0);
-  const [selectedInvestor, setSelectedInvestor] = useState("");
+  const [filteredInvestors, setFilteredInvestors] = useState([] as Investor[]);
+  const [selectedInvestor, setSelectedInvestor] = useState({} as Investor);
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const { user, getAccessTokenSilently } = useAuth0();
+  const { investorsList } = useContext(InvestorsListContext) || {}; // Add null check here
+
+  console.log(investorsList);
+  console.log(selectedRoundId);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const token = await getAccessTokenSilently();
     const auth0Id = user?.sub;
 
-    if (!raised && !committed && !selectedInvestor) {
+    if (!raised && !committed) {
       toast({
         variant: "destructive",
         title: "Hang on!",
@@ -50,8 +62,8 @@ const TagInvestorButton = () => {
     const body = {
       raised,
       committed,
-      roundId,
-      investorId,
+      roundId: selectedRoundId,
+      investorId: selectedInvestor.id,
     };
 
     try {
@@ -64,20 +76,69 @@ const TagInvestorButton = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(result.data);
-
-      setSelectedInvestor("");
+      setSelectedInvestor({} as Investor);
       setRaised(0);
       setCommitted(0);
       setIsOpen(false);
       toast({
         description: "Investor succesfullly tagged to round!",
       });
+      console.log(result.data);
     } catch (error) {
       console.log(`Error: ${error}`);
     }
   };
 
+  // To return investor's id given their name
+  const findInvestorByName = (name: string, investors: Investor[]) => {
+    return investors.find((investor) => investor.name === name);
+  };
+
+  // To filter investors in dropdown selection based on whether already added to round
+  const filterAddedInvestors = async () => {
+    const auth0Id = user?.sub;
+    const token = await getAccessTokenSilently();
+    try {
+      const response = await axios.get(
+        `${
+          import.meta.env.VITE_SOME_BACKEND_SERVER
+        }/startup/${auth0Id}/roundInvestors/${selectedRoundId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
+  useEffect(() => {
+    // Compare existing round investors with all investors tagged to user, to filter out already tagged investors
+    const fetchFilteredInvestors = async () => {
+      const existingRoundInvestors = await filterAddedInvestors();
+
+      const roundInvestorIds = existingRoundInvestors?.map(
+        (investor: RoundInvestor) => investor.investorId
+      );
+
+      console.log(roundInvestorIds);
+      
+      
+      const availableInvestors = investorsList?.filter(
+        (investor) => !roundInvestorIds?.includes(investor?.id)
+      );
+      
+      setFilteredInvestors(availableInvestors as Investor[]); // Add type assertion here
+    };
+    if (investorsList) {
+      fetchFilteredInvestors();
+    }
+  }, [investorsList]);
+
+  console.log(filteredInvestors);
+  
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -90,7 +151,6 @@ const TagInvestorButton = () => {
         <form
           onSubmit={(e) => {
             handleSubmit(e);
-            console.log("Investor tagged to round");
           }}
         >
           <DialogHeader>
@@ -105,19 +165,26 @@ const TagInvestorButton = () => {
                 Investor
               </Label>
               <Select
-                value={selectedInvestor}
-                onValueChange={(value) => setSelectedInvestor(value)}
+                value={selectedInvestor?.name}
+                onValueChange={(value) => {
+                  if (investorsList) {
+                    const investor = findInvestorByName(value, investorsList);
+                    setSelectedInvestor(investor);
+                  }
+                }}
               >
                 <SelectTrigger className="w-[180px] col-span-3">
                   <SelectValue placeholder="Select Investor" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="Angel">Angel</SelectItem>
-                    <SelectItem value="Corporate">Corporate</SelectItem>
-                    <SelectItem value="Government">Government</SelectItem>
-                    <SelectItem value="PE">PE</SelectItem>
-                    <SelectItem value="VC">VC</SelectItem>
+                    {filteredInvestors?.map((investor) => {
+                      return (
+                        <SelectItem key={investor?.id} value={investor?.name}>
+                          {investor?.name}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectGroup>
                 </SelectContent>
               </Select>

@@ -49,7 +49,7 @@ const ActionMenuRoundInvestors = ({
 
   // Investor details of row selected
   const { id, raised, committed } = investor;
-  console.log("investor", investor);
+  // console.log("investor", investor);
 
   // To change raised type if DB issue can be resolved
   const [selectedRaised, setSelectedRaised] = useState(Number(raised));
@@ -97,7 +97,7 @@ const ActionMenuRoundInvestors = ({
       );
       console.log("result", result);
       toast({
-        description: "Investor funds succesfully updated",
+        description: "Funding details succesfully updated",
       });
     } catch (error) {
       console.log(`Error: ${error}`);

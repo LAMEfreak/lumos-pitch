@@ -6,7 +6,7 @@ import { RoundProps } from "@/pages/Dashboard";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import TagInvestorButton from "./TagInvestorButton";
-
+import InvestorsListProvider from "@/utilities/context/InvestorsListProvider";
 
 export const RoundInvestorsSection = ({
   selectedRound,
@@ -21,7 +21,7 @@ export const RoundInvestorsSection = ({
   //   selectedRound
   // );
   const { user, getAccessTokenSilently } = useAuth0();
-  console.log(selectedRound, "SELECTEDROUND");
+  // console.log(selectedRound, "SELECTEDROUND");
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
@@ -49,7 +49,9 @@ export const RoundInvestorsSection = ({
 
   return (
     <main className="relative flex flex-col mx-auto mt-4">
-      <TagInvestorButton/>
+      <InvestorsListProvider>
+        <TagInvestorButton selectedRoundId={selectedRound?.id} />
+      </InvestorsListProvider>
       <DataTable columns={columns} data={currentRoundInvestors} />
     </main>
   );
