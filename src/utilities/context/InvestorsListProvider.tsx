@@ -26,7 +26,7 @@ const InvestorsListProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (error) {
       console.log(`Error: ${error}`);
     }
-  };
+  };  
 
   useEffect(() => {
     fetchData();

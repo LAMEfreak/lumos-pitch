@@ -11,7 +11,7 @@ import {
   UsersRound,
 } from "lucide-react";
 
-interface InvestorProps {
+export interface InvestorProps {
   id: number;
   committed: number;
   raised: number;
@@ -42,10 +42,10 @@ const RoundsSection = ({
     return acc + investor.committed;
   }, 0);
 
-  console.log(currentRoundInvestors);
-
-  const calculateProgressBar =
-    ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100;
+  const calculateProgressBar = Math.min(
+    100,
+    ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100
+  );
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
@@ -74,10 +74,8 @@ const RoundsSection = ({
     return () => clearTimeout(timer);
   }, [calculateProgressBar]);
 
-  console.log(currentRoundInvestors);
-
   return (
-    <main className="flex flex-col w-full">
+    <main className="flex flex-col w-full mt-4">
       <section className="border dark:bg-gradient-to-br from-[#020417] to-[#2b021a] relative flex flex-col text-left p-10 rounded-lg">
         <div className="absolute right-10 top-9">
           <div className="flex gap-4">

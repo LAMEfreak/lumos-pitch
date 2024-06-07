@@ -11,13 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import RoundInvestorsSection from "@/components/RoundsSection/RoundInvestorsSection/RoundInvestorsSection";
 
 export interface RoundProps {
+  id: number;
   stage: string;
   target: number;
   name: string;
   description: string;
-  id: number;
   startupId: number;
 }
 
@@ -34,7 +35,7 @@ const Dashboard = () => {
   const getAllRounds = async () => {
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();
-    
+
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/rounds`,
@@ -126,7 +127,7 @@ const Dashboard = () => {
   return isAuthenticated && selectedRound ? (
     <section className="p-8 flex flex-col items-center container">
       <div className="flex justify-between align-middle w-full -mt-2">
-        <h1 className="text-2xl mb-0">Dashboard</h1>
+        <h1 className="text-2xl mb-0">{`Dashboard : ${selectedRound.name}`}</h1>
         <div className="flex gap-4">
           <Select
             value={value}
@@ -170,7 +171,9 @@ const Dashboard = () => {
             getAllRounds={getAllRounds}
           />
         </TabsContent>
-        <TabsContent value="investors">{"123"}</TabsContent>
+        <TabsContent value="investors">
+          <RoundInvestorsSection selectedRound={selectedRound} />
+        </TabsContent>
       </Tabs>
     </section>
   ) : (

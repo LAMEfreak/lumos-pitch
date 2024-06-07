@@ -18,7 +18,9 @@ export const columns: ColumnDef<Investor>[] = [
   {
     accessorKey: "name",
     header: "Name",
+    accessorFn: (row: Investor | null) => (row && row.name ? row.name : "-"),
   },
+
   {
     accessorKey: "type",
     header: ({ column }) => {
@@ -32,6 +34,7 @@ export const columns: ColumnDef<Investor>[] = [
         </Button>
       );
     },
+    accessorFn: (row: Investor | null) => (row && row.type ? row.type : "-"),
   },
   {
     accessorKey: "stage",
@@ -46,14 +49,18 @@ export const columns: ColumnDef<Investor>[] = [
         </Button>
       );
     },
+    accessorFn: (row: Investor | null) => (row && row.stage ? row.stage : "-"),
   },
   {
     accessorKey: "company",
     header: "Company",
+    accessorFn: (row: Investor | null) =>
+      row && row.company ? row.company : "-",
   },
   {
     accessorKey: "email",
     header: "Email",
+    accessorFn: (row: Investor | null) => (row && row.email ? row.email : "-"),
   },
   {
     accessorKey: "updatedAt",
@@ -68,7 +75,7 @@ export const columns: ColumnDef<Investor>[] = [
         </Button>
       );
     },
-    accessorFn: (originalRow: { updatedAt: string }) => originalRow.updatedAt,
+    // accessorFn: (originalRow: { updatedAt: string }) => originalRow.updatedAt,
     cell: ({ row }) => {
       const { updatedAt } = row.original;
       const date = new Date(updatedAt); // Convert updatedAt to a Date object
@@ -110,7 +117,7 @@ export const columns: ColumnDef<Investor>[] = [
     cell: ({ row }) => {
       const investor = row.original;
 
-      return <ActionMenu investor={investor} />;
+      return<ActionMenu investor={investor} /> ;
     },
   },
 ];
