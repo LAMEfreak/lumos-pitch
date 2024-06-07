@@ -8,14 +8,32 @@ export type RoundInvestor = {
   id: number;
   roundId: number;
   investorId: number;
-  raised: string | number | null;
-  committed: number | null;
+  raised: string | number;
+  committed: number;
+  investor: {
+    company: string;
+    email: string;
+    name: string;
+    type: string;
+  };
 };
 
 export const columns: ColumnDef<RoundInvestor>[] = [
   {
-    accessorKey: "id",
-    header: () => <div className="text-center">Id</div>,
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorFn: (row: RoundInvestor | null) =>
+      row && row.investor.name ? row.investor.name : "-",
   },
   {
     accessorKey: "raised",
@@ -48,6 +66,55 @@ export const columns: ColumnDef<RoundInvestor>[] = [
     },
     accessorFn: (row: RoundInvestor | null) =>
       row && row.committed ? row.committed : "-",
+  },
+
+  {
+    accessorKey: "type",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Type
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorFn: (row: RoundInvestor | null) =>
+      row && row.investor.type ? row.investor.type : "-",
+  },
+  {
+    accessorKey: "company",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Company
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorFn: (row: RoundInvestor | null) =>
+      row && row.investor.company ? row.investor.company : "-",
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Email
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    accessorFn: (row: RoundInvestor | null) =>
+      row && row.investor.email ? row.investor.email : "-",
   },
   {
     header: "Actions",

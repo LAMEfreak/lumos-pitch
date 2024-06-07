@@ -8,7 +8,7 @@ export type Investor = {
   id: number;
   name: string;
   type: "VC" | "Angel" | "PE" | "Corporate" | "Government";
-  company: string | null;
+  company: string | readonly string[] | number | undefined;
   stage: "Pre Seed" | "Seed" | "Series A" | "Series B" | "Series C";
   email: string;
   updatedAt: string;
@@ -117,7 +117,7 @@ export const columns: ColumnDef<Investor>[] = [
     cell: ({ row }) => {
       const investor = row.original;
 
-      return<ActionMenu investor={investor} /> ;
+      return <ActionMenu investor={investor} />;
     },
   },
 ];

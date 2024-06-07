@@ -10,14 +10,15 @@ import {
   Crosshair,
   UsersRound,
 } from "lucide-react";
+import { RoundInvestor } from "./RoundInvestorsSection/columns";
 
-export interface InvestorProps {
-  id: number;
-  committed: number;
-  raised: number;
-  investorId: number;
-  roundId: number;
-}
+// export interface InvestorProps {
+//   id: number;
+//   committed: number;
+//   raised: number;
+//   investorId: number;
+//   roundId: number;
+// }
 
 const RoundsSection = ({
   getAllRounds,
@@ -29,7 +30,7 @@ const RoundsSection = ({
   // console.log("selectedRound at roundsSectionlevel", selectedRound);
   const { user, getAccessTokenSilently } = useAuth0();
   const [currentRoundInvestors, setCurrentRoundInvestors] = useState<
-    InvestorProps[] | null
+    RoundInvestor[] | null
   >(null);
   const [progress, setProgress] = useState(0);
 

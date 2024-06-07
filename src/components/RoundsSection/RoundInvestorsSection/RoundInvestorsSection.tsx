@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import { DataTable } from "./DataTable";
 import { RoundInvestor, columns } from "./columns";
 import { RoundProps } from "@/pages/Dashboard";
+// import { useGetRoundInvestors } from "./useGetRoundInvestors";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+
 
 export const RoundInvestorsSection = ({
   selectedRound,
@@ -13,8 +15,12 @@ export const RoundInvestorsSection = ({
   const [currentRoundInvestors, setCurrentRoundInvestors] = useState<
     RoundInvestor[]
   >([]);
+  // const getRoundInvestors = useGetRoundInvestors(
+  //   setCurrentRoundInvestors,
+  //   selectedRound
+  // );
   const { user, getAccessTokenSilently } = useAuth0();
-  // console.log(selectedRound, "SELECTEDROUND");
+  console.log(selectedRound, "SELECTEDROUND");
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;

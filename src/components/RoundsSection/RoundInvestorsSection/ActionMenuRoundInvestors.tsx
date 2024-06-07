@@ -35,11 +35,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-const ActionMenuRoundInvestors = ({ investor }) => {
+import { RoundInvestor } from "./columns";
+
+const ActionMenuRoundInvestors = ({
+  investor,
+}: {
+  investor: RoundInvestor;
+}) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
   const { user, getAccessTokenSilently } = useAuth0();
+
   // Investor details of row selected
   const { id, raised, committed } = investor;
   console.log("investor", investor);
