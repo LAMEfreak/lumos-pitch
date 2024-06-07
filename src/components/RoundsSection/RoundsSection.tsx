@@ -1,10 +1,15 @@
 import { NullableRoundProps } from "../../pages/Dashboard";
-import { Target } from "lucide-react";
 import ManageRounds from "./components/ManageRounds";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
+import {
+  CircleDollarSign,
+  Handshake,
+  Crosshair,
+  UsersRound,
+} from "lucide-react";
 
 interface InvestorProps {
   id: number;
@@ -38,7 +43,7 @@ const RoundsSection = ({
   }, 0);
 
   console.log(currentRoundInvestors);
-  
+
   const calculateProgressBar =
     ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100;
 
@@ -98,17 +103,17 @@ const RoundsSection = ({
             max={selectedRound?.target}
           />
           <p className="ml-6 text-gray-500">
-            <span className="font-semibold dark:text-green-400 text-xl mr-1">
+            <span className="font-semibold dark:text-green-300 text-xl mr-1">
               {calculateProgressBar}%
             </span>{" "}
             of target raised
           </p>
         </div>
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4">
-          <div className="dark:bg-green-900 dark:border-green-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
-            <div className="flex justify-between items-center dark:text-gray-600">
+          <div className="dark:bg-green-700 dark:border-green-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+            <div className="flex justify-between items-center">
               <p className="text-md dark:text-green-500 font-medium">Raised</p>
-              <Target size={24} />
+              <CircleDollarSign size={24} className="dark:text-green-400" />
             </div>
             <p className="text-3xl mt-6 font-semibold mb-2">
               {new Intl.NumberFormat("en-US", {
@@ -118,14 +123,13 @@ const RoundsSection = ({
                 maximumFractionDigits: 0,
               }).format(totalRaised || 0)}
             </p>
-            {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-blue-900 dark:border-blue-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
-            <div className="flex justify-between items-center dark:text-gray-600">
+          <div className="dark:bg-blue-700 dark:border-blue-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+            <div className="flex justify-between items-center">
               <p className="text-md dark:text-blue-400 font-medium">
                 Committed
               </p>
-              <Target size={24} />
+              <Handshake size={24} className="dark:text-blue-400" />
             </div>
             <p className="text-3xl mt-6 font-semibold mb-2">
               {new Intl.NumberFormat("en-US", {
@@ -135,14 +139,11 @@ const RoundsSection = ({
                 maximumFractionDigits: 0,
               }).format(totalCommitted || 0)}
             </p>
-            {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-fuchsia-900 dark:border-fuchsia-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
-            <div className="flex justify-between items-center dark:text-gray-600">
-              <p className="text-md dark:text-fuchsia-400 font-medium">
-                Target Size
-              </p>
-              <Target size={24} />
+          <div className="dark:bg-fuchsia-700 dark:border-fuchsia-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+            <div className="flex justify-between dark:text-fuchsia-400 items-center">
+              <p className="text-md  font-medium">Target Size</p>
+              <Crosshair size={24} className="" />
             </div>
             <p className="text-3xl mt-6 font-semibold mb-2">
               {new Intl.NumberFormat("en-US", {
@@ -154,14 +155,14 @@ const RoundsSection = ({
             </p>
             {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-cyan-900 dark:border-cyan-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
-            <div className="flex justify-between items-center dark:text-gray-600">
-              <p className="text-md dark:text-cyan-400 font-medium">
-                Investors
-              </p>
-              <Target size={24} />
+          <div className="dark:bg-cyan-700 dark:border-cyan-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+            <div className="flex justify-between items-center dark:text-cyan-400">
+              <p className="text-md font-medium">Investors</p>
+              <UsersRound size={24} />
             </div>
-            <p className="text-3xl mt-6 font-semibold mb-2">12</p>
+            <p className="text-3xl mt-6 font-semibold mb-2">
+              {currentRoundInvestors?.length}
+            </p>
           </div>
         </div>
       </section>
