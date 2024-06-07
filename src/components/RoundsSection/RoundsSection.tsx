@@ -4,6 +4,7 @@ import ManageRounds from "./components/ManageRounds";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
+import { Progress } from "@/components/ui/progress";
 
 interface InvestorProps {
   id: number;
@@ -25,6 +26,7 @@ const RoundsSection = ({
   const [currentRoundInvestors, setCurrentRoundInvestors] = useState<
     InvestorProps[] | null
   >(null);
+  const [progress, setProgress] = useState(0);
 
   const totalRaised = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + investor.raised;
@@ -33,6 +35,9 @@ const RoundsSection = ({
   const totalCommitted = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + investor.committed;
   }, 0);
+
+  const calculateProgressBar =
+    ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100;
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
@@ -56,6 +61,11 @@ const RoundsSection = ({
     getRoundInvestors();
   }, [selectedRound?.id]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setProgress(calculateProgressBar), 300);
+    return () => clearTimeout(timer);
+  }, [calculateProgressBar]);
+
   console.log(currentRoundInvestors);
 
   return (
@@ -78,7 +88,15 @@ const RoundsSection = ({
         <p className="mt-6 line-clamp-2 dark:text-gray-500 max-w-[70ch]">
           {selectedRound?.description}
         </p>
-        <div className="grid gap-8 mt-10 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4">
+        <div className="my-8 flex items-center">
+          <Progress
+            value={progress}
+            className="w-[20%] dark:bg-gray-900"
+            max={selectedRound?.target}
+          />
+          <p className="ml-4 font-semibold">{calculateProgressBar}% of target raised</p>
+        </div>
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4">
           <div className="dark:bg-green-900 dark:border-green-800 border dark:bg-opacity-40 rounded-md py-4 px-6">
             <div className="flex justify-between items-center dark:text-gray-600">
               <p className="text-md dark:text-green-500 font-medium">Raised</p>
