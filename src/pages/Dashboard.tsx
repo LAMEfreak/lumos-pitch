@@ -216,9 +216,9 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <div className="container">
-        <div className="border-dashed border-2 border-gray-800 py-64 rounded-lg text bg-opacity-5 bg-blue-900">
-          <p className="px-6 py-4 rounded-xl bg-gray-900 text-gray-400 inline">
+      <div className="container max-h-screen">
+        <div className="border-dashed border-2 border-gray-800 flex justify-center h-[70vh] rounded-lg text bg-opacity-5 bg-blue-900">
+          <p className="px-6 py-4 rounded-xl text-gray-400 self-center">
             Add investors or a new funding round
           </p>
         </div>
