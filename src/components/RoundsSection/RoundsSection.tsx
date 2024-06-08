@@ -34,9 +34,8 @@ const RoundsSection = ({
   >(null);
   const [progress, setProgress] = useState(0);
 
-  // To resolve if DB issue can be solved
   const totalRaised = currentRoundInvestors?.reduce((acc, investor) => {
-    return acc + Number(investor.raised);
+    return acc + investor.raised;
   }, 0);
    
   const totalCommitted = currentRoundInvestors?.reduce((acc, investor) => {
@@ -49,7 +48,6 @@ const RoundsSection = ({
   );
   console.log(calculateProgressBar);
   
-
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();

@@ -8,7 +8,7 @@ export type RoundInvestor = {
   id: number;
   roundId: number;
   investorId: number;
-  raised: string | number;
+  raised: number;
   committed: number;
   investor: {
     company: string;

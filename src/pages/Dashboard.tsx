@@ -112,6 +112,7 @@ const Dashboard = () => {
     getAllRounds();
   }, []);
 
+  // HERE IS THE CODE THAT SETS THE DROPWDOWN OPTION TO THE FISRST ENTRY BY DEFAULT
   useEffect(() => {
     if (allRounds.length > 0) {
       setSelectedRound(allRounds[0]);
@@ -121,13 +122,16 @@ const Dashboard = () => {
       // console.log(allRounds, `Dashboard level`);
       // console.log(`Selected round name`, value);
       // console.log(`Selected round details`, selectedRound);
+    } else {
+      setSelectedRound(null);
     }
   }, [allRounds]);
+  console.log(selectedRound);
 
   return isAuthenticated && selectedRound ? (
     <section className="p-8 flex flex-col items-center container">
       <div className="flex justify-between align-middle w-full -mt-2">
-        <h1 className="text-2xl mb-0">{`Dashboard : ${selectedRound.name}`}</h1>
+        <h1 className="text-2xl mb-0">{`Dashboard`}</h1>
         <div className="flex gap-4">
           <Select
             value={value}
@@ -212,8 +216,8 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <div className="">
-        <div className="border-dashed border-2 border-gray-800 mx-8 py-64 rounded-lg text bg-opacity-5 bg-blue-900">
+      <div className="container">
+        <div className="border-dashed border-2 border-gray-800 py-64 rounded-lg text bg-opacity-5 bg-blue-900">
           <p className="px-6 py-4 rounded-xl bg-gray-900 text-gray-400 inline">
             Add investors or a new funding round
           </p>

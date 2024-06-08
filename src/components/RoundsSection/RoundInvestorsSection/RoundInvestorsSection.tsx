@@ -48,7 +48,7 @@ export const RoundInvestorsSection = ({
   // console.log(currentRoundInvestors, "INVESTORSROUND");
 
   return (
-    <main className="relative flex flex-col mx-auto mt-4">
+    <main className="relative flex flex-col mx-auto">
       <InvestorsListProvider>
         <TagInvestorButton selectedRoundId={selectedRound?.id} />
       </InvestorsListProvider>

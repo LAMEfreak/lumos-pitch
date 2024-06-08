@@ -67,7 +67,7 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
       setDescription("");
       console.log(result.data);
       toast({
-        title: `${name} created`,
+        title: `New round ${name} created`,
       });
       getAllRounds();
       console.log(`Round added and getAllRoubds called`);
