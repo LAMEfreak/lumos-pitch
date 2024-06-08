@@ -47,6 +47,8 @@ const RoundsSection = ({
     100,
     ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100
   );
+  console.log(calculateProgressBar);
+  
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
@@ -103,7 +105,7 @@ const RoundsSection = ({
           />
           <p className="ml-6 text-gray-500">
             <span className="font-semibold dark:text-green-300 text-xl mr-1">
-              {calculateProgressBar}%
+              {calculateProgressBar.toFixed(2)}%
             </span>{" "}
             of target raised
           </p>
