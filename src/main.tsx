@@ -9,10 +9,10 @@ import MainLayout from "./pages/MainLayout.tsx";
 import { AuthenticationGuard } from "./utilities/AuthenticationGuard.tsx";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/utilities/ThemeProvider.tsx";
-import Sessions from "./pages/Sessions.tsx";
 import Dashboard from "./pages/Dashboard";
 import InvestorsMasterList from "./components/InvestorsMasterList/InvestorsMasterList.tsx";
 import InvestorsListProvider from "./utilities/context/InvestorsListProvider.tsx";
+import Meetings from "./pages/Meetings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,17 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/overview",
         element: <AuthenticationGuard component={Dashboard} />,
-        // children: [
-        //   {
-        //     path: "/dashboard/overview/rounds",
-        //     element: <AuthenticationGuard component={RoundsSection} />,
-        //   },
-        // ],
       },
 
       {
         path: "/dashboard/sessions",
-        element: <AuthenticationGuard component={Sessions} />,
+        element: <AuthenticationGuard component={Meetings} />,
       },
       {
         path: "/dashboard/investors",

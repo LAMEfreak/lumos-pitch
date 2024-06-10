@@ -37,7 +37,7 @@ const RoundsSection = ({
   const totalRaised = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + investor.raised;
   }, 0);
-   
+
   const totalCommitted = currentRoundInvestors?.reduce((acc, investor) => {
     return acc + investor.committed;
   }, 0);
@@ -47,7 +47,7 @@ const RoundsSection = ({
     ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100
   );
   console.log(calculateProgressBar);
-  
+
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();
@@ -95,7 +95,7 @@ const RoundsSection = ({
         <p className="mt-6 line-clamp-2 dark:text-gray-500 max-w-[70ch]">
           {selectedRound?.description}
         </p>
-        <div className="my-8 flex items-center">
+        <div className="my-10 flex items-center">
           <Progress
             value={progress}
             className="w-[30%] dark:bg-gray-900"
@@ -108,13 +108,13 @@ const RoundsSection = ({
             of target raised
           </p>
         </div>
-        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4">
-          <div className="dark:bg-green-700 dark:border-green-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2 md:grid-rows-2 lg:grid-rows-1 lg:grid-cols-4 ">
+          <div className="dark:bg-green-700 dark:border-green-700 border dark:bg-opacity-40 rounded-md min-h-[160px] p-6 flex flex-col justify-between">
             <div className="flex justify-between items-center">
               <p className="text-md dark:text-green-500 font-medium">Raised</p>
               <CircleDollarSign size={24} className="dark:text-green-400" />
             </div>
-            <p className="text-3xl mt-6 font-semibold mb-2">
+            <p className="text-3xl font-semibold">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -123,14 +123,14 @@ const RoundsSection = ({
               }).format(totalRaised || 0)}
             </p>
           </div>
-          <div className="dark:bg-blue-700 dark:border-blue-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+          <div className="dark:bg-blue-700 dark:border-blue-700 border dark:bg-opacity-40 rounded-md min-h-[160px] p-6 flex flex-col justify-between">
             <div className="flex justify-between items-center">
               <p className="text-md dark:text-blue-400 font-medium">
                 Committed
               </p>
               <Handshake size={24} className="dark:text-blue-400" />
             </div>
-            <p className="text-3xl mt-6 font-semibold mb-2">
+            <p className="text-3xl font-semibold">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -139,12 +139,12 @@ const RoundsSection = ({
               }).format(totalCommitted || 0)}
             </p>
           </div>
-          <div className="dark:bg-fuchsia-700 dark:border-fuchsia-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+          <div className="dark:bg-fuchsia-700 dark:border-fuchsia-700 border dark:bg-opacity-40 rounded-md min-h-[160px] p-6 flex flex-col justify-between">
             <div className="flex justify-between dark:text-fuchsia-400 items-center">
               <p className="text-md  font-medium">Target Size</p>
               <Crosshair size={24} className="" />
             </div>
-            <p className="text-3xl mt-6 font-semibold mb-2">
+            <p className="text-3xl font-semibold">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -154,12 +154,12 @@ const RoundsSection = ({
             </p>
             {/* <p>{investorCount}</p> */}
           </div>
-          <div className="dark:bg-cyan-700 dark:border-cyan-700 border dark:bg-opacity-40 rounded-md py-4 px-6">
+          <div className="dark:bg-cyan-700 dark:border-cyan-700 border dark:bg-opacity-40 rounded-md min-h-[160px] p-6 flex flex-col justify-between">
             <div className="flex justify-between items-center dark:text-cyan-400">
               <p className="text-md font-medium">Investors</p>
               <UsersRound size={24} />
             </div>
-            <p className="text-3xl mt-6 font-semibold mb-2">
+            <p className="text-3xl font-semibold">
               {currentRoundInvestors?.length}
             </p>
           </div>

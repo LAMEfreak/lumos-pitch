@@ -126,12 +126,13 @@ const Dashboard = () => {
       setSelectedRound(null);
     }
   }, [allRounds]);
-  console.log(selectedRound);
+  // console.log(selectedRound);
+  console.log(user);
 
   return isAuthenticated && selectedRound ? (
     <section className="p-8 flex flex-col items-center container">
       <div className="flex justify-between align-middle w-full -mt-2">
-        <h1 className="text-2xl mb-0">{`Dashboard`}</h1>
+        <h1 className="text-2xl mb-0">Dashboard</h1>
         <div className="flex gap-4">
           <Select
             value={value}
@@ -162,8 +163,8 @@ const Dashboard = () => {
           <AddRound getAllRounds={getAllRounds} />
         </div>
       </div>
-      <Tabs defaultValue="overview" className="w-full flex flex-col my-6">
-        <div className="self-start mb-4">
+      <Tabs defaultValue="overview" className="w-full flex flex-col mt-4">
+        <div className="self-start">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="investors">Investors</TabsTrigger>
@@ -219,7 +220,7 @@ const Dashboard = () => {
       <div className="container max-h-screen">
         <div className="border-dashed border-2 border-gray-800 flex justify-center h-[70vh] rounded-lg text bg-opacity-5 bg-blue-900">
           <p className="px-6 py-4 rounded-xl text-gray-400 self-center">
-            Add investors or a new funding round
+            investors or a new funding round
           </p>
         </div>
       </div>

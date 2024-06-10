@@ -9,7 +9,7 @@
 
   color-scheme: light dark;
   color: #edededde;
-  background-color: #242424;
+  background-color: 222.2 84% 2.9%;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,6 +26,18 @@ body {
   min-width: 320px;
   min-height: 100vh;
   box-sizing: border-box;
+}
+
+/* Speaker Layout */
+.str-video {
+  background-color: #272a30;
+  color: #ffffff;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
 }
 
 @layer base {
@@ -60,8 +72,7 @@ body {
 
     --radius: 0.5rem;
 
-    --text-color: #1E1D1D
-
+    --text-color: #1e1d1d;
   }
 
   .dark {
@@ -93,7 +104,7 @@ body {
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
 
-    --text-color: #E8E8E8
+    --text-color: #e8e8e8;
   }
 }
 
@@ -104,7 +115,6 @@ body {
   body {
     @apply bg-background text-foreground;
     color: var(--text-color);
-
   }
 }
 

@@ -4,8 +4,13 @@ import LoginButton from "./components/LoginButton";
 function App() {
   return (
     <main className="min-h-screen flex justify-center items-center bg-black">
-      <video autoPlay muted loop className="fixed size-full opacity-80">
-        <source src="src\assets\Neon.mp4" type="video/mp4" />
+      <video
+        autoPlay
+        muted
+        loop
+        className="fixed object-cover size-full opacity-90"
+      >
+        <source src="\Neon.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>{" "}
       <div className="z-50">
