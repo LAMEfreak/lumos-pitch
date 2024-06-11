@@ -35,7 +35,7 @@ const Dashboard = () => {
   const getAllRounds = async () => {
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();
-
+    
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/rounds`,

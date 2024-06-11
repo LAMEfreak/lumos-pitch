@@ -26,7 +26,6 @@ const Meetings = () => {
         </div>
         <MeetingTypeList />
       </div>
-      <p>2313</p>
     </section>
   );
 };

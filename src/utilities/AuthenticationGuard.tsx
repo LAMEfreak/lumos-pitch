@@ -2,7 +2,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 import PageLoader from "./PageLoader";
 
 interface AuthenticationGuardProps {
-  component: React.ComponentType<any>;
+  component: React.ComponentType;
 }
 
 export const AuthenticationGuard: React.FC<AuthenticationGuardProps> = ({

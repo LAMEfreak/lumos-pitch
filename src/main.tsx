@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import InvestorsMasterList from "./components/InvestorsMasterList/InvestorsMasterList.tsx";
 import InvestorsListProvider from "./utilities/context/InvestorsListProvider.tsx";
 import Meetings from "./pages/Meetings.tsx";
+import StreamProviderClient from "@/providers/StreamProviderClient";
 
 const router = createBrowserRouter([
   {
@@ -58,8 +59,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RouterProvider router={router} />
-        <Toaster />
+        <StreamProviderClient>
+          <RouterProvider router={router} />
+          <Toaster />
+        </StreamProviderClient>
       </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>
