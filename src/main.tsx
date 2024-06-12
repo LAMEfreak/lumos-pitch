@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import '@stream-io/video-react-sdk/dist/css/styles.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "./pages/ErrorBoundary.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -13,7 +14,8 @@ import Dashboard from "./pages/Dashboard";
 import InvestorsMasterList from "./components/InvestorsMasterList/InvestorsMasterList.tsx";
 import InvestorsListProvider from "./utilities/context/InvestorsListProvider.tsx";
 import Meetings from "./pages/Meetings.tsx";
-import StreamProviderClient from "@/providers/StreamProviderClient";
+import StreamProviderClient from "@/utilities/StreamProviderClient.tsx";
+import MeetingPage from "./components/Meetings/MeetingPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -31,9 +33,10 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/dashboard/sessions",
+        path: "/dashboard/meetings",
         element: <AuthenticationGuard component={Meetings} />,
       },
+
       {
         path: "/dashboard/investors",
         element: (
@@ -43,6 +46,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/meeting/:id",
+    element: <AuthenticationGuard component={MeetingPage} />,
   },
 ]);
 

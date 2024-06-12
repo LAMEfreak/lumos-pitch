@@ -91,7 +91,7 @@ const AddInvestorButton = () => {
         <Button
           variant="outline"
           size="default"
-          className=" dark:bg-blue-700 dark:hover:bg-blue-800 "
+          className=" dark:bg-blue-700 dark:hover:bg-blue-800"
         >
           Add Investor
         </Button>

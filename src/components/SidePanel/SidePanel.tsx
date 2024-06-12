@@ -1,6 +1,6 @@
 import ModeToggle from "./ModeToggle";
 import LogoutButton from "./LogoutButton";
-import SessionsButton from "./SessionsButton";
+import MeetingsButton from "./MeetingsButton";
 import HomeButton from "./HomeButton";
 import InvestorsButton from "./InvestorsButton";
 
@@ -11,7 +11,7 @@ const SidePanel = () => {
         <div className="flex flex-col items-center gap-6 mt-4">
           <ul className="flex flex-col space-y-6">
             <HomeButton />
-            <SessionsButton />
+            <MeetingsButton />
             <InvestorsButton />
           </ul>
         </div>

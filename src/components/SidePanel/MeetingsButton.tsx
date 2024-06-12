@@ -2,10 +2,10 @@ import { Button } from "../ui/button";
 import { Video } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-const SessionsButton = () => {
+const MeetingsButton = () => {
   return (
     <NavLink
-      to={"/dashboard/sessions"}
+      to={"/dashboard/meetings"}
       className={({ isActive }) => {
         return isActive ? "text-indigo-700 dark:text-indigo-400" : "null";
       }}
@@ -17,4 +17,4 @@ const SessionsButton = () => {
   );
 };
 
-export default SessionsButton;
+export default MeetingsButton;
