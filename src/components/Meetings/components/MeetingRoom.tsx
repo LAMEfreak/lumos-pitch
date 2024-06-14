@@ -4,6 +4,8 @@ import {
   CallParticipantsList,
   PaginatedGridLayout,
   SpeakerLayout,
+  useCallStateHooks,
+  CallingState,
 } from "@stream-io/video-react-sdk";
 import { useState } from "react";
 import {
@@ -12,14 +14,34 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LayoutList, Users } from "lucide-react";
+import { LayoutList } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import EndCallButton from "./EndCallButton";
+import { ThreeDots } from "react-loader-spinner";
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
+  // If personal room, show end call button
+  const location = useLocation();
+  const isPersonalRoom = !!location.pathname.includes("personal");
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
   console.log(showParticipants);
+  const { useCallCallingState } = useCallStateHooks();
+
+  const callingState = useCallCallingState();
+
+  if (callingState !== CallingState.JOINED) {
+    <ThreeDots
+      visible={true}
+      height="80"
+      width="60"
+      color="#fff"
+      radius="12"
+      ariaLabel="three-dots-loading"
+    />;
+  }
 
   const CallLayout = () => {
     switch (layout) {
@@ -32,7 +54,7 @@ const MeetingRoom = () => {
     }
   };
   return (
-    <section className="relative h-screen w-full overflow-hidden mb-4">
+    <section className="relative h-screen w-full p-4 overflow-hidden mb-4">
       <div className="relative flex size-full items-center justify-center">
         <div className="flex size-full max-w-[1000px] items-center">
           <CallLayout />
@@ -68,11 +90,12 @@ const MeetingRoom = () => {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <button onClick={() => setShowParticipants((prev) => !prev)}>
+        {/* <button onClick={() => setShowParticipants((prev) => !prev)}>
           <div className=" cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]  ">
             <Users size={20} className="text-white" />
           </div>
-        </button>
+        </button> */}
+        {!isPersonalRoom && <EndCallButton />}
       </div>
     </section>
   );

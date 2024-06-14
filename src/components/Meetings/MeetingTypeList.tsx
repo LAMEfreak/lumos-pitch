@@ -16,6 +16,8 @@ import { CalendarPlus } from "lucide-react";
 import { useStreamVideoClient, Call } from "@stream-io/video-react-sdk";
 import { toast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const MeetingTypeList = () => {
   const { user } = useAuth0();
@@ -32,7 +34,6 @@ const MeetingTypeList = () => {
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
-
       if (!values.dateTime) {
         toast({
           description: "Please select a date and time",
@@ -63,14 +64,12 @@ const MeetingTypeList = () => {
 
       if (!values.description) {
         navigate(`/meeting/${call.id}`);
-        
       }
 
       toast({
         description: "Meeting created",
       });
       return;
-      
     } catch (error) {
       toast({
         description: "Failed to create call",
@@ -95,38 +94,94 @@ const MeetingTypeList = () => {
           <DialogHeader>
             <DialogTitle>Start a Meeting</DialogTitle>
             <DialogDescription>
-              Open a video call room to pitch to investors
+              Spin up a video call room to pitch to investors
             </DialogDescription>
           </DialogHeader>
 
           <DialogFooter className="mt-4">
-            <Button onClick={() => createMeeting()}>Start Meeting</Button>
+            <Button onClick={() => createMeeting()}>Start meeting</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      <Dialog>
-        <DialogTrigger>
-          <MeetingCard
-            icon={CalendarPlus}
-            title="Schedule"
-            description="Schedule meeting"
-            color="bg-blue-700"
-          />
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
+      {/* Two variants depending on whether meeting is scheduled */}
+      {!callDetails ? (
+        <Dialog>
+          <DialogTrigger>
+            <MeetingCard
+              icon={CalendarPlus}
+              title="Schedule"
+              description="Plan a meeting"
+              color="bg-blue-700"
+            />
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle className="mb-4">Schedule Meeting</DialogTitle>
+              <Label htmlFor="description" className="pb-3">
+                Add a description
+              </Label>
+              <Input
+                id="description"
+                value={values.description}
+                type="text"
+                placeholder="Enter meeting details..."
+                onChange={(e) =>
+                  setValues({
+                    ...values,
+                    description: e.target.value,
+                  })
+                }
+              />
+              <Label htmlFor="description" className="pb-3">
+                Select date and time
+              </Label>
+            </DialogHeader>
 
-          <DialogFooter className="mt-4">
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+            <DialogFooter className="mt-4">
+              <Button
+                onClick={() => {
+                  console.log(values);
+                }}
+              >
+                Schedule meeting
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <Dialog>
+          <DialogTrigger>
+            <MeetingCard
+              icon={CalendarPlus}
+              title="Schedule"
+              description="Plan a meeting"
+              color="bg-blue-700"
+            />
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+
+            <DialogFooter className="mt-4">
+              <Button
+                onClick={() => {
+                  // navigator.clipboard.writeText(meetingLink);
+                  // toast({
+                  //   description: "Link copied",
+                  // });
+                }}
+              >
+                Save changes
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
 
       <Dialog>
         <DialogTrigger>

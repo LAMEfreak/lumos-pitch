@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import { StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
 import { useState } from "react";
 import MeetingSetup from "./components/MeetingSetup";
@@ -8,7 +7,6 @@ import { useGetCallById } from "../../../hooks/useGetCallById";
 import { ThreeDots } from "react-loader-spinner";
 
 const MeetingPage = () => {
-  const { user, isLoading } = useAuth0();
   const [isSetupComplete, setIsSetupComplete] = useState(false);
   const { id } = useParams();
   const { call, isCallLoading } = useGetCallById(id!);
