@@ -16,12 +16,8 @@ export const RoundInvestorsSection = ({
   const [currentRoundInvestors, setCurrentRoundInvestors] = useState<
     RoundInvestor[]
   >([]);
-  // const getRoundInvestors = useGetRoundInvestors(
-  //   setCurrentRoundInvestors,
-  //   selectedRound
-  // );
+
   const { user, getAccessTokenSilently } = useAuth0();
-  // console.log(selectedRound, "SELECTEDROUND");
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;
@@ -43,9 +39,7 @@ export const RoundInvestorsSection = ({
 
   useEffect(() => {
     getRoundInvestors();
-  }, [selectedRound?.id]);
-
-  // console.log(currentRoundInvestors, "INVESTORSROUND");
+  }, [currentRoundInvestors, selectedRound]);
 
   return (
     <main className="relative flex flex-col mx-auto">
