@@ -216,7 +216,7 @@ const ManageRounds = ({
       {isDeleteDialogOpen && (
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{`Delete?`}</AlertDialogTitle>
+            <AlertDialogTitle>Delete Funding Round</AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you wish to delete this funding round? All details
               and tagged investors will be removed.

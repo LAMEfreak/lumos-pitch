@@ -18,6 +18,9 @@ import { toast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import ReactDatePicker from "react-datepicker";
+import { Video } from "lucide-react";
+import { Link2 } from "lucide-react";
 
 const MeetingTypeList = () => {
   const { user } = useAuth0();
@@ -78,16 +81,20 @@ const MeetingTypeList = () => {
     }
   };
 
+  const meetingLink = `${import.meta.env.VITE_SOME_LOCAL_SERVER}/meeting/${
+    callDetails?.id
+  }`;
+
   return (
     <section className="grid grid-cols-2 gap-6">
       <Dialog>
         <DialogTrigger>
           {" "}
           <MeetingCard
-            icon={CalendarPlus}
+            icon={Video}
             title="New"
             description="Start instant meeting"
-            color="bg-orange-700 text-left"
+            color="dark:bg-orange-500 dark:border-orange-500 border dark:bg-opacity-40"
           />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
@@ -105,91 +112,94 @@ const MeetingTypeList = () => {
       </Dialog>
 
       {/* Two variants depending on whether meeting is scheduled */}
-      {!callDetails ? (
-        <Dialog>
-          <DialogTrigger>
-            <MeetingCard
-              icon={CalendarPlus}
-              title="Schedule"
-              description="Plan a meeting"
-              color="bg-blue-700"
-            />
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle className="mb-4">Schedule Meeting</DialogTitle>
-              <Label htmlFor="description" className="pb-3">
-                Add a description
-              </Label>
-              <Input
-                id="description"
-                value={values.description}
-                type="text"
-                placeholder="Enter meeting details..."
-                onChange={(e) =>
-                  setValues({
-                    ...values,
-                    description: e.target.value,
-                  })
-                }
-              />
-              <Label htmlFor="description" className="pb-3">
-                Select date and time
-              </Label>
-            </DialogHeader>
 
-            <DialogFooter className="mt-4">
-              <Button
-                onClick={() => {
-                  console.log(values);
-                }}
-              >
-                Schedule meeting
-              </Button>
-            </DialogFooter>
+      <Dialog>
+        <DialogTrigger>
+          <MeetingCard
+            icon={CalendarPlus}
+            title="Schedule"
+            description="Plan a meeting"
+            color="dark:bg-blue-700 dark:border-blue-700 border dark:bg-opacity-40"
+          />
+        </DialogTrigger>
+        {!callDetails ? (
+          <DialogContent className="sm:max-w-[425px]">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                createMeeting();
+              }}
+            >
+              <DialogHeader>
+                <DialogTitle className="mb-4">Schedule Meeting</DialogTitle>
+                <Label htmlFor="description" className="pb-3">
+                  Add a description
+                </Label>
+                <Input
+                  id="description"
+                  value={values.description}
+                  type="text"
+                  placeholder="Enter meeting details..."
+                  onChange={(e) =>
+                    setValues({
+                      ...values,
+                      description: e.target.value,
+                    })
+                  }
+                />
+                <Label htmlFor="description" className="py-4">
+                  Select date and time
+                </Label>
+                <ReactDatePicker
+                  selected={values.dateTime}
+                  onChange={(date) => setValues({ ...values, dateTime: date! })}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={30}
+                  timeCaption="time"
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  className="w-full rounded-md p-3 text-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-white"
+                />
+              </DialogHeader>
+
+              <DialogFooter className="mt-6">
+                <Button type="submit">Schedule meeting</Button>
+              </DialogFooter>
+            </form>
           </DialogContent>
-        </Dialog>
-      ) : (
-        <Dialog>
-          <DialogTrigger>
-            <MeetingCard
-              icon={CalendarPlus}
-              title="Schedule"
-              description="Plan a meeting"
-              color="bg-blue-700"
-            />
-          </DialogTrigger>
+        ) : (
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
+              <DialogTitle>Meeting Created</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
+                Your meeting has been created. Here's the link to share
               </DialogDescription>
             </DialogHeader>
 
             <DialogFooter className="mt-4">
               <Button
                 onClick={() => {
-                  // navigator.clipboard.writeText(meetingLink);
-                  // toast({
-                  //   description: "Link copied",
-                  // });
+                  navigator.clipboard.writeText(meetingLink);
+                  toast({
+                    description: "Link copied",
+                  });
                 }}
+                className="w-full"
               >
-                Save changes
+                Copy Meeting Link
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
-      )}
+        )}
+      </Dialog>
 
       <Dialog>
         <DialogTrigger>
           <MeetingCard
-            icon={CalendarPlus}
+            icon={Link2}
             title="Join"
             description="via invitation link"
-            color="bg-rose-700"
+            color="dark:bg-pink-700 dark:border-pink-700 border dark:bg-opacity-40"
           />
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">

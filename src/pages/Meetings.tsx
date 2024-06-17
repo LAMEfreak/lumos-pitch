@@ -1,4 +1,6 @@
 import MeetingTypeList from "@/components/Meetings/MeetingTypeList";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import UpcomingCallsList from "@/components/Meetings/UpcomingCallsList";
 
 const Meetings = () => {
   const now = new Date();
@@ -11,21 +13,32 @@ const Meetings = () => {
   );
 
   return (
-    <section className="container text-left size-full mt-8 flex flex-col gap-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="w-full rounded-lg bg-cover bg-banner-image p-8">
-          <div className="flex flex-col h-full justify-between">
-            <p className="bg-sky-900 text-center px-8 bg-opacity-40 backdrop-blur-lg max-w-[300px] rounded-md text-base font-normal py-2">
-              Upcoming Meeting at: 12:30 PM
-            </p>
-            <div className="flex flex-col">
-              <p className="text-5xl font-bold">{time}</p>
-              <p className="text-lg text-slate-400 my-2">{date}</p>
-            </div>
-          </div>
+    <section className="container text-left size-full mt-8 flex flex-col gap-6">
+      <h1 className="text-2xl mb-0">Meetings</h1>
+      <Tabs defaultValue="meeting" className="w-full flex flex-col">
+        <div className="self-start">
+          <TabsList className="mb-4">
+            <TabsTrigger value="meeting">Create Meeting</TabsTrigger>
+            <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+          </TabsList>
         </div>
-        <MeetingTypeList />
-      </div>
+        <TabsContent value="meeting">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="w-full rounded-lg bg-cover bg-banner-image p-10">
+              <div className="flex h-full justify-between">
+                <div className="flex self-end flex-col">
+                  <p className="text-5xl font-bold">{time}</p>
+                  <p className="text-lg text-slate-400 mt-4">{date}</p>
+                </div>
+              </div>
+            </div>
+            <MeetingTypeList />
+          </div>
+        </TabsContent>
+        <TabsContent value="upcoming">
+          <UpcomingCallsList type="upcoming" />
+        </TabsContent>
+      </Tabs>
     </section>
   );
 };

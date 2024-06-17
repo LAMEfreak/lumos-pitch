@@ -220,7 +220,7 @@ const Dashboard = () => {
       <div className="container max-h-screen">
         <div className="border-dashed border-2 border-gray-800 flex justify-center h-[70vh] rounded-lg text bg-opacity-5 bg-blue-900">
           <p className="px-6 py-4 rounded-xl text-gray-400 self-center">
-            investors or a new funding round
+            Add investors or a new funding round
           </p>
         </div>
       </div>

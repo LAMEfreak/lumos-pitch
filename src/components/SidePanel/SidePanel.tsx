@@ -1,4 +1,4 @@
-import ModeToggle from "./ModeToggle";
+// import ModeToggle from "./ModeToggle";
 import LogoutButton from "./LogoutButton";
 import MeetingsButton from "./MeetingsButton";
 import HomeButton from "./HomeButton";
@@ -17,7 +17,7 @@ const SidePanel = () => {
         </div>
         <div className="border-t pt-4">
           <div className="flex flex-col gap-6 items-center">
-            <ModeToggle />
+            {/* <ModeToggle /> */}
             <LogoutButton />
           </div>
         </div>

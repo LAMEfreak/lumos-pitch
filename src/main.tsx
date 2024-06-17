@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import '@stream-io/video-react-sdk/dist/css/styles.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorBoundary from "./pages/ErrorBoundary.tsx";
 import { Auth0Provider } from "@auth0/auth0-react";
