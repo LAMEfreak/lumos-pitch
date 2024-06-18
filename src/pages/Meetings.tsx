@@ -14,7 +14,7 @@ const Meetings = () => {
   );
 
   return (
-    <section className="container text-left size-full mt-8 flex flex-col gap-6">
+    <section className="container text-left size-full pt-8 flex flex-col gap-6">
       <h1 className="text-2xl mb-0">Meetings</h1>
       <Tabs defaultValue="meeting" className="w-full flex flex-col">
         <div className="self-start">

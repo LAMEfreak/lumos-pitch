@@ -14,7 +14,7 @@ export const useGetCalls = () => {
       setIsLoading(true);
       try {
         const { calls } = await client.queryCalls({
-          sort: [{ field: "starts_at", direction: 1 }],
+          sort: [{ field: "starts_at", direction: -1 }],
           filter_conditions: {
             starts_at: { $exists: true },
             // MIGHT HAVE TO USE user.nickname because of StreamProviderClient.tsx
@@ -35,15 +35,17 @@ export const useGetCalls = () => {
   }, [client, user?.sub, user?.nickname]);
 
   const now = new Date();
-
+  
   const endedCalls = calls.filter(({ state: { startsAt, endedAt } }: Call) => {
     return (startsAt && new Date(startsAt) < now) || !!endedAt;
   });
 
   const upcomingCalls = calls.filter(({ state: { startsAt } }: Call) => {
     return startsAt && new Date(startsAt) > now;
-  });
-
+    });
+    
+    console.log(calls);
+    console.log(upcomingCalls);
   return {
     endedCalls,
     upcomingCalls,

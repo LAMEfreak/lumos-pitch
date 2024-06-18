@@ -21,7 +21,7 @@ const UpcomingMeetingCard = ({
   buttonText,
 }: MeetingCardProps) => {
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-lg bg-[#070814] border border-[#232325] p-8">
+    <section className="flex min-h-[200px] w-full flex-col justify-between rounded-lg bg-[#070814] border border-[#232325] p-8">
       <article className="flex flex-col gap-5">
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold">{title}</h1>

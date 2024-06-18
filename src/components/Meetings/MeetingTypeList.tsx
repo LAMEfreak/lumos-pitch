@@ -163,7 +163,9 @@ const MeetingTypeList = () => {
               </DialogHeader>
 
               <DialogFooter className="mt-6">
-                <Button type="submit">Schedule meeting</Button>
+                <Button type="submit" disabled={!values.description}>
+                  Schedule meeting
+                </Button>
               </DialogFooter>
             </form>
           </DialogContent>
@@ -202,16 +204,30 @@ const MeetingTypeList = () => {
             color="dark:bg-pink-700 dark:border-pink-700 border dark:bg-opacity-40"
           />
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[525px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
+            <DialogTitle className="mb-4">Join Meeting</DialogTitle>
+            <Input
+              type="text"
+              placeholder="Enter meeting link"
+              onChange={(e) =>
+                setValues({
+                  ...values,
+                  link: e.target.value,
+                })
+              }
+            />
           </DialogHeader>
 
           <DialogFooter className="mt-4">
-            <Button type="submit">Save changes</Button>
+            <Button
+              disabled={!values.link}
+              onClick={() => {
+                window.location.href = `${values.link}`;
+              }}
+            >
+              Join now
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

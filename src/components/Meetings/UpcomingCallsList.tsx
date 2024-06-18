@@ -15,17 +15,18 @@ const UpcomingCallsList = ({
   const getUpcomingCalls = () => {
     if (type === "upcoming") {
       return upcomingCalls;
-    } else {
+      } else {
       return [];
     }
   };
-
+  
   const getNoCallsMessage = (): string => {
     return "No calls are scheduled";
-  };
-
-  const calls = getUpcomingCalls();
-  const noCallsMessage = getNoCallsMessage();
+    };
+    
+    const calls = getUpcomingCalls();
+    const noCallsMessage = getNoCallsMessage();
+    console.log(calls);
 
   if (isLoading) {
     return (
@@ -42,7 +43,6 @@ const UpcomingCallsList = ({
     );
   }
   console.log(calls);
-  
 
   return (
     <section className="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -67,7 +67,7 @@ const UpcomingCallsList = ({
           );
         })
       ) : (
-        <p className='mt-4'>{noCallsMessage}</p>
+        <p className={`mt-4`}>{noCallsMessage}</p>
       )}
     </section>
   );
