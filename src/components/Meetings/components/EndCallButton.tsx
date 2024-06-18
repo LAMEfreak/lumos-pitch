@@ -13,8 +13,10 @@ const EndCallButton = () => {
     localParticipant &&
     call?.state.createdBy &&
     localParticipant.userId === call.state.createdBy.id;
-
-  if (!isMeetingOwner) null;
+  
+  if (!isMeetingOwner) {
+    return null
+  }
 
   return (
     <Button

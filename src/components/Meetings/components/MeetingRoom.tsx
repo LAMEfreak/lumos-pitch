@@ -18,19 +18,26 @@ import { LayoutList } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import EndCallButton from "./EndCallButton";
 import { ThreeDots } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
+import { toast } from "../../ui/use-toast";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
   // If personal room, show end call button
   const location = useLocation();
-  const isPersonalRoom = !!location.pathname.includes("personal");
+  const searchParams = new URLSearchParams(location.search);
+  const isPersonalRoom = searchParams.get("personal") === "true";
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
   console.log(showParticipants);
   const { useCallCallingState } = useCallStateHooks();
+  const { user } = useAuth0();
 
   const callingState = useCallCallingState();
+  console.log(isPersonalRoom);
+  const navigate = useNavigate();
 
   if (callingState !== CallingState.JOINED) {
     <ThreeDots
@@ -53,6 +60,8 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition="left" />;
     }
   };
+  console.log(user);
+
   return (
     <section className="relative h-screen w-full p-4 overflow-hidden mb-4">
       <div className="relative flex size-full items-center justify-center">
@@ -68,7 +77,18 @@ const MeetingRoom = () => {
         </div>
       </div>
       <div className="fixed bottom-2 flex w-full justify-center gap-5 items-center">
-        <CallControls />
+        <CallControls
+          onLeave={() => {
+            if (!user) {
+              navigate("/close");
+            } else {
+              navigate("/dashboard/meetings");
+              toast({
+                description: "Call ended",
+              });
+            }
+          }}
+        />
         <DropdownMenu>
           <div className="flex items-center">
             <DropdownMenuTrigger className="cursor-pointer rounded-full transition-all duration-100 ease-in-out bg-[#19232d] p-[10px] hover:bg-[#4c535b]">

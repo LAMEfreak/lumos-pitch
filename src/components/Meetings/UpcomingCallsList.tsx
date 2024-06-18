@@ -21,7 +21,7 @@ const UpcomingCallsList = ({
   };
 
   const getNoCallsMessage = (): string => {
-    return "No Upcoming Calls";
+    return "No calls are scheduled";
   };
 
   const calls = getUpcomingCalls();
@@ -41,6 +41,8 @@ const UpcomingCallsList = ({
       </div>
     );
   }
+  console.log(calls);
+  
 
   return (
     <section className="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -65,7 +67,7 @@ const UpcomingCallsList = ({
           );
         })
       ) : (
-        <h1 className="text-transparent">{noCallsMessage}</h1>
+        <p className='mt-4'>{noCallsMessage}</p>
       )}
     </section>
   );

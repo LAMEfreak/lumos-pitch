@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
-import { StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
+import {
+  StreamCall,
+  StreamTheme,
+} from "@stream-io/video-react-sdk";
 import { useState } from "react";
 import MeetingSetup from "./components/MeetingSetup";
 import MeetingRoom from "./components/MeetingRoom";

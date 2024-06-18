@@ -1,6 +1,7 @@
 import MeetingTypeList from "@/components/Meetings/MeetingTypeList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UpcomingCallsList from "@/components/Meetings/UpcomingCallsList";
+// import PersonalRoom from "@/components/Meetings/PersonalRoom";
 
 const Meetings = () => {
   const now = new Date();
@@ -20,6 +21,7 @@ const Meetings = () => {
           <TabsList className="mb-4">
             <TabsTrigger value="meeting">Create Meeting</TabsTrigger>
             <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+            {/* <TabsTrigger value="personal">Personal Room</TabsTrigger> */}
           </TabsList>
         </div>
         <TabsContent value="meeting">
@@ -38,6 +40,9 @@ const Meetings = () => {
         <TabsContent value="upcoming">
           <UpcomingCallsList type="upcoming" />
         </TabsContent>
+        {/* <TabsContent value="personal">
+        <PersonalRoom />
+        </TabsContent> */}
       </Tabs>
     </section>
   );
