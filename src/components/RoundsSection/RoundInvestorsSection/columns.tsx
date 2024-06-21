@@ -43,7 +43,7 @@ export const columns: ColumnDef<RoundInvestor>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Raised
+          Raised ($)
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -51,13 +51,16 @@ export const columns: ColumnDef<RoundInvestor>[] = [
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("raised"));
       const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
         currency: "USD",
       }).format(amount);
 
-      return <div>{formatted}</div>;
+      return (
+        <div className="text-base font-semibold text-green-500">
+          {formatted}
+        </div>
+      );
     },
     accessorFn: (row: RoundInvestor | null) =>
       row && row.raised ? row.raised : 0,
@@ -70,7 +73,7 @@ export const columns: ColumnDef<RoundInvestor>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Committed
+          Committed ($)
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -78,13 +81,12 @@ export const columns: ColumnDef<RoundInvestor>[] = [
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("committed"));
       const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
         currency: "USD",
       }).format(amount);
 
-      return <div>{formatted}</div>;
+      return <div className="text-base font-semibold text-blue-400">{formatted}</div>;
     },
     accessorFn: (row: RoundInvestor | null) =>
       row && row.committed ? row.committed : 0,

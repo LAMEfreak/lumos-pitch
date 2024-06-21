@@ -82,41 +82,13 @@ const TagInvestorButton = ({
     }
   };
 
-  // To return investor's id given their name
-  const findInvestorByName = (name: string, investors: Investor[]) => {
-    return investors.find((investor) => investor.name === name);
-  };
-
-  // To filter investors in dropdown selection based on whether already added to round
-  const filterAddedInvestors = async () => {
-    const auth0Id = user?.sub;
-    const token = await getAccessTokenSilently();
-    try {
-      const response = await axios.get(
-        `${
-          import.meta.env.VITE_SOME_BACKEND_SERVER
-        }/startup/${auth0Id}/roundInvestors/${selectedRoundId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      return response.data;
-    } catch (error) {
-      console.log(`Error: ${error}`);
-    }
-  };
-
   useEffect(() => {
     // Compare existing round investors with all investors tagged to user, to filter out already tagged investors
     const fetchFilteredInvestors = async () => {
-      const existingRoundInvestors = await filterAddedInvestors();
 
-      const roundInvestorIds = existingRoundInvestors?.map(
+      const roundInvestorIds = currentRoundInvestors?.map(
         (investor: RoundInvestor) => investor.investorId
       );
-
-      // console.log(roundInvestorIds);
 
       const availableInvestors = investorsList?.filter(
         (investor) => !roundInvestorIds?.includes(investor?.id)
@@ -160,6 +132,15 @@ const TagInvestorButton = ({
                 value={selectedInvestor?.name}
                 onValueChange={(value) => {
                   if (investorsList) {
+                    // To return investor's id given their name
+                    const findInvestorByName = (
+                      name: string,
+                      investors: Investor[]
+                    ) => {
+                      return investors.find(
+                        (investor) => investor.name === name
+                      );
+                    };
                     const investor = findInvestorByName(value, investorsList);
                     if (investor !== undefined) setSelectedInvestor(investor);
                   }

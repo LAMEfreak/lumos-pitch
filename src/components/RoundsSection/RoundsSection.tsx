@@ -77,21 +77,22 @@ const RoundsSection = ({
   return (
     <main className="flex flex-col w-full mt-4">
       <section className="border dark:bg-gradient-to-br from-[#020417] to-[#2b021a] relative flex flex-col text-left p-10 rounded-lg">
-        <div className="absolute right-10 top-9">
-          <div className="flex gap-4">
-            <ManageRounds
-              selectedRound={selectedRound}
-              getAllRounds={getAllRounds}
-            />
+        <div className="flex flex-col gap-4 md:flex-row md:gap-0 items-center justify-between">
+          <div className="flex items-center">
+            <p className="text-2xl font-semibold mr-6">
+              {" "}
+              {selectedRound?.name}
+            </p>
+            <p className="text-xs align-middle px-3 py-1 rounded-full text-blue-500 dark:text-blue-300 bg-blue-100 dark:bg-blue-950">
+              {selectedRound?.stage}
+            </p>
           </div>
+          <ManageRounds
+            selectedRound={selectedRound}
+            getAllRounds={getAllRounds}
+          />
         </div>
-        <div className="flex items-center">
-          <p className="text-2xl font-semibold mr-6"> {selectedRound?.name}</p>
-          <p className="text-xs align-middle px-3 py-1 rounded-full text-blue-500 dark:text-blue-300 bg-blue-100 dark:bg-blue-950">
-            {selectedRound?.stage}
-          </p>
-        </div>
-        <p className="mt-6 line-clamp-2 dark:text-gray-500 max-w-[70ch]">
+        <p className="mt-6 dark:text-gray-500 max-w-[80ch]">
           {selectedRound?.description}
         </p>
         <div className="my-10 flex items-center">
@@ -151,7 +152,6 @@ const RoundsSection = ({
                 maximumFractionDigits: 0,
               }).format(selectedRound?.target || 0)}
             </p>
-            {/* <p>{investorCount}</p> */}
           </div>
           <div className="dark:bg-cyan-700 dark:border-cyan-700 border dark:bg-opacity-40 rounded-md min-h-[160px] p-6 flex flex-col justify-between">
             <div className="flex justify-between items-center dark:text-cyan-400">
