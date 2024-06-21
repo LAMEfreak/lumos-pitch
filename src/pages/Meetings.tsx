@@ -1,16 +1,27 @@
 import MeetingTypeList from "@/components/Meetings/MeetingTypeList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UpcomingCallsList from "@/components/Meetings/UpcomingCallsList";
+import { useEffect, useState } from "react";
 // import PersonalRoom from "@/components/Meetings/PersonalRoom";
 
 const Meetings = () => {
-  const now = new Date();
-  const time = now.toLocaleTimeString("en-US", {
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setTime(new Date());
+    }, 60000);
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  
+  const clock = time.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
   });
+
   const date = new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(
-    now
+    new Date()
   );
 
   return (
@@ -29,7 +40,7 @@ const Meetings = () => {
             <div className="w-full rounded-lg bg-cover bg-banner-image p-10">
               <div className="flex h-full justify-between">
                 <div className="flex self-end flex-col">
-                  <p className="text-5xl font-bold">{time}</p>
+                  <p className="text-5xl font-bold">{clock}</p>
                   <p className="text-lg text-slate-400 mt-4">{date}</p>
                 </div>
               </div>

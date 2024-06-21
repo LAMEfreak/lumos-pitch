@@ -26,7 +26,7 @@ const UpcomingCallsList = ({
     
     const calls = getUpcomingCalls();
     const noCallsMessage = getNoCallsMessage();
-    console.log(calls);
+    // console.log(calls);
 
   if (isLoading) {
     return (
@@ -42,7 +42,7 @@ const UpcomingCallsList = ({
       </div>
     );
   }
-  console.log(calls);
+  // console.log(calls);
 
   return (
     <section className="grid grid-cols-1 xl:grid-cols-2 gap-8">

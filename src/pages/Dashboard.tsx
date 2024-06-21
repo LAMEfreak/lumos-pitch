@@ -100,7 +100,7 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log(result);
+        // console.log(result);
       } catch (error) {
         console.log(`Error: ${error}`);
       }
@@ -113,22 +113,17 @@ const Dashboard = () => {
     getAllRounds();
   }, []);
 
-  // HERE IS THE CODE THAT SETS THE DROPWDOWN OPTION TO THE FISRST ENTRY BY DEFAULT
+  // HERE IS THE CODE THAT SETS THE DROPDOWN OPTION TO THE FIRST ENTRY BY DEFAULT
   useEffect(() => {
     if (allRounds.length > 0) {
       setSelectedRound(allRounds[0]);
       // Provide a default value of an empty string if allRounds[0]?.name is undefined
       setValue(allRounds[0]?.name || "");
-
-      // console.log(allRounds, `Dashboard level`);
-      // console.log(`Selected round name`, value);
-      // console.log(`Selected round details`, selectedRound);
     } else {
       setSelectedRound(null);
     }
   }, [allRounds]);
-  // console.log(selectedRound);
-  console.log(user);
+  // console.log(user);
 
   return isAuthenticated && selectedRound ? (
     <section className="p-8 flex flex-col items-center container">

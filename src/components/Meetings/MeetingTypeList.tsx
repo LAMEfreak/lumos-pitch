@@ -33,7 +33,7 @@ const MeetingTypeList = () => {
     link: "",
   });
   const [callDetails, setCallDetails] = useState<Call>();
-  console.log(client);
+  // console.log(client);
   
   const createMeeting = async () => {
     if (!client || !user) return;
