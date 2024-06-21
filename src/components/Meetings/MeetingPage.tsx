@@ -13,7 +13,7 @@ const MeetingPage = () => {
   const [isSetupComplete, setIsSetupComplete] = useState(false);
   const { id } = useParams();
   const { call, isCallLoading } = useGetCallById(id!);
-  console.log(id);
+  console.log(id);  
 
   if (isCallLoading) {
     console.log(isCallLoading);

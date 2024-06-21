@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RoundInvestorsSection from "@/components/RoundsSection/RoundInvestorsSection/RoundInvestorsSection";
+import RoundInvestorsProvider from "@/utilities/context/RoundInvestorsProvider";
 
 export interface RoundProps {
   id: number;
@@ -35,7 +36,7 @@ const Dashboard = () => {
   const getAllRounds = async () => {
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();
-    
+
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/rounds`,
@@ -177,7 +178,9 @@ const Dashboard = () => {
           />
         </TabsContent>
         <TabsContent value="investors">
-          <RoundInvestorsSection selectedRound={selectedRound} />
+          <RoundInvestorsProvider selectedRoundId={selectedRound.id}>
+            <RoundInvestorsSection selectedRoundId={selectedRound.id} />
+          </RoundInvestorsProvider>
         </TabsContent>
       </Tabs>
     </section>

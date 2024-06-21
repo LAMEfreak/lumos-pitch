@@ -1,11 +1,13 @@
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth0 } from "@auth0/auth0-react";
+import { RoundInvestor } from "./columns";
+import { RoundInvestorsContext } from "../../../utilities/context/RoundInvestorsContext";
 
 import {
   DropdownMenu,
@@ -35,8 +37,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { RoundInvestor } from "./columns";
-
 const ActionMenuRoundInvestors = ({
   investor,
 }: {
@@ -46,6 +46,7 @@ const ActionMenuRoundInvestors = ({
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { toast } = useToast();
   const { user, getAccessTokenSilently } = useAuth0();
+  const { getRoundInvestors } = useContext(RoundInvestorsContext)!;
 
   // Investor details of row selected
   const { id, raised, committed } = investor;
@@ -68,6 +69,7 @@ const ActionMenuRoundInvestors = ({
         }
       );
       console.log(result);
+      getRoundInvestors();
       toast({
         description: "Investor succesfully removed from round",
       });
@@ -96,6 +98,7 @@ const ActionMenuRoundInvestors = ({
         }
       );
       console.log("result", result);
+      getRoundInvestors();
       toast({
         description: "Funding details succesfully updated",
       });
@@ -198,7 +201,7 @@ const ActionMenuRoundInvestors = ({
               round?
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
+          <AlertDialogFooter className="mt-2">
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {

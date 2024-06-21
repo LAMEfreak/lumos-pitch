@@ -78,7 +78,7 @@ const MeetingRoom = () => {
       </div>
       <div className="fixed bottom-2 flex w-full justify-center gap-5 items-center">
         <CallControls
-          onLeave={() => {
+          onLeave={async () => {
             if (!user) {
               navigate("/close");
             } else {

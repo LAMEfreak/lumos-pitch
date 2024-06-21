@@ -18,6 +18,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useToast } from "@/components/ui/use-toast";
 import { InvestorsListContext } from "../../../utilities/context/InvestorsListContext";
+import { RoundInvestorsContext } from "../../../utilities/context/RoundInvestorsContext";
 
 import {
   Select,
@@ -41,23 +42,14 @@ const TagInvestorButton = ({
   const { toast } = useToast();
   const { user, getAccessTokenSilently } = useAuth0();
   const { investorsList } = useContext(InvestorsListContext) || {}; // Add null check here
-
-  console.log(investorsList);
-  console.log(selectedRoundId);
+  const { currentRoundInvestors, getRoundInvestors } = useContext(
+    RoundInvestorsContext
+  )!;
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const token = await getAccessTokenSilently();
     const auth0Id = user?.sub;
-
-    if (!raised && !committed) {
-      toast({
-        variant: "destructive",
-        title: "Hang on!",
-        description: "Missing investor details",
-      });
-      return;
-    }
 
     const body = {
       raised,
@@ -80,6 +72,7 @@ const TagInvestorButton = ({
       setRaised(0);
       setCommitted(0);
       setIsOpen(false);
+      getRoundInvestors();
       toast({
         description: "Investor succesfullly tagged to round!",
       });
@@ -123,22 +116,21 @@ const TagInvestorButton = ({
         (investor: RoundInvestor) => investor.investorId
       );
 
-      console.log(roundInvestorIds);
-      
-      
+      // console.log(roundInvestorIds);
+
       const availableInvestors = investorsList?.filter(
         (investor) => !roundInvestorIds?.includes(investor?.id)
       );
-      
+
       setFilteredInvestors(availableInvestors as Investor[]); // Add type assertion here
     };
     if (investorsList) {
       fetchFilteredInvestors();
     }
-  }, [investorsList]);
+  }, [investorsList, currentRoundInvestors]);
 
-  console.log(filteredInvestors);
-  
+  // console.log(filteredInvestors);
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -156,7 +148,7 @@ const TagInvestorButton = ({
           <DialogHeader>
             <DialogTitle>Tag an investor to the round</DialogTitle>
             <DialogDescription>
-              Enter amounts committed and/or raised
+              Enter amounts committed and raised
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-8 mt-4">
@@ -169,7 +161,7 @@ const TagInvestorButton = ({
                 onValueChange={(value) => {
                   if (investorsList) {
                     const investor = findInvestorByName(value, investorsList);
-                    setSelectedInvestor(investor);
+                    if (investor !== undefined) setSelectedInvestor(investor);
                   }
                 }}
               >

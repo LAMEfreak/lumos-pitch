@@ -44,6 +44,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { Textarea } from "@/components/ui/textarea";
+
 const ManageRounds = ({
   selectedRound,
   getAllRounds,
@@ -168,10 +170,10 @@ const ManageRounds = ({
               onChange={(e) => setName(e.target.value)}
             />
             <Label htmlFor="description">Description</Label>
-            <Input
+            <Textarea
               id="description"
               value={description}
-              className="mt-2 mb-6"
+              className="mt-2 mb-6 h-40"
               placeholder="Enter description"
               onChange={(e) => setDescription(e.target.value)}
             />

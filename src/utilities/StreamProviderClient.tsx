@@ -15,7 +15,7 @@ interface StreamProviderClientProps {
 
 const StreamProviderClient = ({ children }: StreamProviderClientProps) => {
   const videoClient = useInitializeVideoClient();
-
+  
   if (!videoClient) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -38,8 +38,8 @@ const useInitializeVideoClient = () => {
   const [videoClient, setVideoClient] = useState<StreamVideoClient | null>(
     null
   );
-      console.log(videoClient);
-
+  
+  // Generate Stream token for authenticated users
   const generateStreamToken = async (userId: string) => {
     const token = await getAccessTokenSilently();
 

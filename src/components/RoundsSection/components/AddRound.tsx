@@ -24,6 +24,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { Textarea } from "@/components/ui/textarea";
+
 const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,15 +37,6 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
   const handleSubmit = async () => {
     const token = await getAccessTokenSilently();
     const auth0Id = user?.sub;
-
-    if (!name || !description || !stage || !target) {
-      toast({
-        variant: "destructive",
-        title: "Wait a minute!",
-        description: "Complete all fields to add a new round",
-      });
-      return;
-    }
 
     const body = {
       name,
@@ -67,11 +60,9 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
       setDescription("");
       console.log(result.data);
       toast({
-        title: `New round ${name} created`,
+        title: `Round created: ${name}`,
       });
       getAllRounds();
-      console.log(`Round added and getAllRoubds called`);
-      
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -102,10 +93,10 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
           onChange={(e) => setName(e.target.value)}
         />
         <Label htmlFor="description">Description</Label>
-        <Input
+        <Textarea
           id="description"
           value={description}
-          className="mt-2 mb-6"
+          className="mt-2 mb-6 h-40"
           placeholder="Enter description"
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -140,8 +131,9 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
           <Button
             variant="outline"
             size="default"
-            className=" dark:bg-blue-700 dark:hover:bg-blue-800 mt-10 w-full"
+            className=" dark:bg-blue-700 dark:hover:bg-blue-800 mt-10 w-full disabled:opacity-20"
             onClick={() => handleSubmit()}
+            disabled={!name || !description || !stage || !target}
           >
             Add Round
           </Button>

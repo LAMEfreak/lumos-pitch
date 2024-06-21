@@ -46,7 +46,6 @@ const RoundsSection = ({
     100,
     ((totalRaised ?? 0) / (selectedRound?.target ?? 0)) * 100
   );
-  console.log(calculateProgressBar);
 
   const getRoundInvestors = async () => {
     const auth0Id = user?.sub;

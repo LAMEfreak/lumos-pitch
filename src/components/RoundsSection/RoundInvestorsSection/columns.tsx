@@ -60,7 +60,7 @@ export const columns: ColumnDef<RoundInvestor>[] = [
       return <div>{formatted}</div>;
     },
     accessorFn: (row: RoundInvestor | null) =>
-      row && row.raised ? row.raised : "-",
+      row && row.raised ? row.raised : 0,
   },
   {
     accessorKey: "committed",
@@ -87,7 +87,7 @@ export const columns: ColumnDef<RoundInvestor>[] = [
       return <div>{formatted}</div>;
     },
     accessorFn: (row: RoundInvestor | null) =>
-      row && row.committed ? row.committed : "-",
+      row && row.committed ? row.committed : 0,
   },
 
   {

@@ -33,7 +33,8 @@ const MeetingTypeList = () => {
     link: "",
   });
   const [callDetails, setCallDetails] = useState<Call>();
-
+  console.log(client);
+  
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
@@ -64,6 +65,8 @@ const MeetingTypeList = () => {
       });
 
       setCallDetails(call);
+      console.log(call, 'call created');
+      
 
       if (!values.description) {
         navigate(`/meeting/${call.id}`);
