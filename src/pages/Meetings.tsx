@@ -2,7 +2,6 @@ import MeetingTypeList from "@/components/Meetings/MeetingTypeList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UpcomingCallsList from "@/components/Meetings/UpcomingCallsList";
 import { useEffect, useState } from "react";
-// import PersonalRoom from "@/components/Meetings/PersonalRoom";
 
 const Meetings = () => {
   const [time, setTime] = useState(new Date());
@@ -32,7 +31,6 @@ const Meetings = () => {
           <TabsList className="mb-4">
             <TabsTrigger value="meeting">Create Meeting</TabsTrigger>
             <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-            {/* <TabsTrigger value="personal">Personal Room</TabsTrigger> */}
           </TabsList>
         </div>
         <TabsContent value="meeting">
