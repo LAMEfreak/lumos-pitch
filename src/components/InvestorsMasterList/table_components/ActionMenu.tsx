@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { InvestorsListContext } from "../../../utilities/context/InvestorsListContext";
 import { useToast } from "@/components/ui/use-toast";
+import { Investor } from "../columns";
 
 import {
   DropdownMenu,
@@ -45,7 +46,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const ActionMenu = ({ investor }) => {
+const ActionMenu = ({ investor }: { investor: Investor }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
@@ -189,7 +190,16 @@ const ActionMenu = ({ investor }) => {
                   </Label>
                   <Select
                     value={type}
-                    onValueChange={(value) => setType(value)}
+                    onValueChange={(value) =>
+                      setType(
+                        value as
+                          | "VC"
+                          | "Angel"
+                          | "PE"
+                          | "Corporate"
+                          | "Government"
+                      )
+                    }
                   >
                     <SelectTrigger className="w-[180px] col-span-3">
                       <SelectValue placeholder="Investor type" />
@@ -209,7 +219,16 @@ const ActionMenu = ({ investor }) => {
                   </Label>
                   <Select
                     value={stage}
-                    onValueChange={(value) => setStage(value)}
+                    onValueChange={(value) =>
+                      setStage(
+                        value as
+                          | "Pre Seed"
+                          | "Seed"
+                          | "Series A"
+                          | "Series B"
+                          | "Series C"
+                      )
+                    }
                   >
                     <SelectTrigger className="w-[180px] col-span-3">
                       <SelectValue placeholder="Funding stage" />
