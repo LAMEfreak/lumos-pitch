@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LayoutList } from "lucide-react";
-import { useLocation } from "react-router-dom";
 import EndCallButton from "./EndCallButton";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
@@ -25,18 +24,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
-  // If personal room, show end call button
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const isPersonalRoom = searchParams.get("personal") === "true";
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(false);
-  console.log(showParticipants);
   const { useCallCallingState } = useCallStateHooks();
   const { user } = useAuth0();
 
   const callingState = useCallCallingState();
-  console.log(isPersonalRoom);
   const navigate = useNavigate();
 
   if (callingState !== CallingState.JOINED) {
@@ -60,7 +53,7 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition="left" />;
     }
   };
-  console.log(user);
+  // console.log(user);
 
   return (
     <section className="relative h-screen w-full p-4 overflow-hidden mb-4">
@@ -110,12 +103,7 @@ const MeetingRoom = () => {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        {/* <button onClick={() => setShowParticipants((prev) => !prev)}>
-          <div className=" cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]  ">
-            <Users size={20} className="text-white" />
-          </div>
-        </button> */}
-        {!isPersonalRoom && <EndCallButton />}
+        <EndCallButton />
       </div>
     </section>
   );

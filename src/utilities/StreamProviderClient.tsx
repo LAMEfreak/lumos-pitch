@@ -5,31 +5,19 @@ import {
 } from "@stream-io/video-react-sdk";
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ThreeDots } from "react-loader-spinner";
 import { nanoid } from "nanoid";
 import axios from "axios";
 
 interface StreamProviderClientProps {
   children: React.ReactNode;
 }
+const apiKey = import.meta.env.VITE_SOME_STREAM_API_KEY;
 
 const StreamProviderClient = ({ children }: StreamProviderClientProps) => {
   const videoClient = useInitializeVideoClient();
-  
-  if (!videoClient) {
-    return (
-      <div className="h-screen flex justify-center items-center">
-        <ThreeDots
-          visible={true}
-          height="80"
-          width="60"
-          color="#fff"
-          radius="12"
-          ariaLabel="three-dots-loading"
-        />
-      </div>
-    );
-  }
+
+  if (!videoClient) return;
+
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };
 
@@ -38,7 +26,7 @@ const useInitializeVideoClient = () => {
   const [videoClient, setVideoClient] = useState<StreamVideoClient | null>(
     null
   );
-  
+
   // Generate Stream token for authenticated users
   const generateStreamToken = async (userId: string) => {
     const token = await getAccessTokenSilently();
@@ -84,7 +72,7 @@ const useInitializeVideoClient = () => {
       };
     }
 
-    const apiKey = import.meta.env.VITE_SOME_STREAM_API_KEY;
+    // console.log(streamUser);
 
     if (!apiKey) throw new Error("Stream API key is missing");
 

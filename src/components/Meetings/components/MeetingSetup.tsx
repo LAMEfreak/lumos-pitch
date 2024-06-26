@@ -15,7 +15,7 @@ const MeetingSetup = ({
   const [isMicCamToggledOn, setIsMicCamToggledOn] = useState(false);
   const { useCallEndedAt } = useCallStateHooks();
   const callEnded = useCallEndedAt();
-  console.log(callEnded);
+  // console.log(callEnded);
 
   const call = useCall();
 

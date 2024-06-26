@@ -36,7 +36,11 @@ const router = createBrowserRouter([
 
       {
         path: "/dashboard/meetings",
-        element: <AuthenticationGuard component={Meetings} />,
+        element: (
+          <StreamProviderClient>
+            <AuthenticationGuard component={Meetings} />{" "}
+          </StreamProviderClient>
+        ),
       },
 
       {
@@ -51,7 +55,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/meeting/:id",
-    element: <MeetingPage />,
+    element: (
+      <StreamProviderClient>
+        <MeetingPage />
+      </StreamProviderClient>
+    ),
   },
   {
     path: "/close",
@@ -74,10 +82,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       }}
     >
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <StreamProviderClient>
           <RouterProvider router={router} />
           <Toaster />
-        </StreamProviderClient>
       </ThemeProvider>
     </Auth0Provider>
   </React.StrictMode>

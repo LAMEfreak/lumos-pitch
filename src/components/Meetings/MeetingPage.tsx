@@ -13,10 +13,10 @@ const MeetingPage = () => {
   const [isSetupComplete, setIsSetupComplete] = useState(false);
   const { id } = useParams();
   const { call, isCallLoading } = useGetCallById(id!);
-  console.log(id);  
+  // console.log(id);  
 
   if (isCallLoading) {
-    console.log(isCallLoading);
+    // console.log(isCallLoading);
 
     return (
       <div className="h-screen flex justify-center items-center">
