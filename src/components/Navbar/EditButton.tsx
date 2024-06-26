@@ -33,9 +33,6 @@ const EditButton = ({
     e.preventDefault();
     const token = await getAccessTokenSilently();
     const auth0Id = user?.sub;
-    console.log(token);
-    console.log(` `);
-    console.log(auth0Id);
 
     if (!name && !industry) {
       toast({
@@ -52,14 +49,14 @@ const EditButton = ({
     };
     
     try {
-      const result = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}`,
         body,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(result.data);
+      // console.log(result.data);
       setCompanyName(name);
       setCompanyIndustry(industry);
       setName("");

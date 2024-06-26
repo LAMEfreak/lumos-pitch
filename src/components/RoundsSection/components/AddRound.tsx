@@ -46,7 +46,7 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
     };
 
     try {
-      const result = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/rounds`,
         body,
         {
@@ -58,7 +58,7 @@ const AddRound = ({ getAllRounds }: { getAllRounds: () => void }) => {
       setStage("");
       setTarget("");
       setDescription("");
-      console.log(result.data);
+      // console.log(result.data);
       toast({
         title: `Round created: ${name}`,
       });

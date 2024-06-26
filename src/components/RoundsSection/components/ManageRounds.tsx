@@ -70,13 +70,13 @@ const ManageRounds = ({
       const token = await getAccessTokenSilently();
       const auth0Id = user?.sub;
 
-      const result = await axios.delete(
+      await axios.delete(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(result);
+      // console.log(result);
       toast({
         description: "Round succesfully deleted",
       });
@@ -97,14 +97,14 @@ const ManageRounds = ({
         stage,
       };
 
-      const result = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/${id}`,
         body,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("result", result);
+      // console.log("result", result);
       toast({
         description: "Round details succesfully updated",
       });
@@ -228,7 +228,6 @@ const ManageRounds = ({
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
-                console.log(`deleted ${selectedRound?.name}`);
                 deleteRecord(selectedRound!.id);
               }}
               className="dark:bg-red-900 dark:hover:bg-red-700/90 dark:text-slate-50"

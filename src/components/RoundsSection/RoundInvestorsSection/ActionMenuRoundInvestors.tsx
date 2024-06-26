@@ -86,7 +86,6 @@ const ActionMenuRoundInvestors = ({
         raised: selectedRaised,
         committed: selectedCommitted,
       };
-      console.log(body);
 
       await axios.put(
         `${

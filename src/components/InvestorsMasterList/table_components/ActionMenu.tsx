@@ -72,13 +72,13 @@ const ActionMenu = ({ investor }: { investor: Investor }) => {
   const deleteRecord = async (id: number) => {
     try {
       const token = await getAccessTokenSilently();
-      const result = await axios.delete(
+      await axios.delete(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(result);
+      // console.log(result);
       toast({
         description: "Record succesfully deleted",
       });
@@ -98,16 +98,14 @@ const ActionMenu = ({ investor }: { investor: Investor }) => {
         email,
         stage,
       };
-      console.log(`body`);
 
-      const result = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors/${id}`,
         body,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("result", result);
       toast({
         description: "Record succesfully updated",
       });

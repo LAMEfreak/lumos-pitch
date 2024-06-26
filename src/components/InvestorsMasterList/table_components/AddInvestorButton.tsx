@@ -61,15 +61,15 @@ const AddInvestorButton = () => {
     };
 
     try {
-      const result = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/investors`,
         body,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(result.data);
-      console.log(name, company, email, type, stage);
+      // console.log(result.data);
+      // console.log(name, company, email, type, stage);
       setName("");
       setStage("");
       setEmail("");
