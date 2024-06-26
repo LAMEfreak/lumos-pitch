@@ -219,14 +219,16 @@ const Dashboard = () => {
         </div>
       </section>
       {isLoading ? (
-        <ThreeDots
-          visible={true}
-          height="80"
-          width="60"
-          color="#fff"
-          radius="12"
-          ariaLabel="three-dots-loading"
-        />
+        <div className="flex justify-center items-center h-[70vh]">
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="60"
+            color="#fff"
+            radius="12"
+            ariaLabel="three-dots-loading"
+          />
+        </div>
       ) : (
         <div className="container max-h-screen">
           <div className="border-dashed border-2 border-gray-800 flex justify-center h-[70vh] rounded-lg text bg-opacity-5 bg-blue-900">
