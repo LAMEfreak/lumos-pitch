@@ -65,7 +65,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       domain={import.meta.env.VITE_SOME_DOMAIN}
       clientId={import.meta.env.VITE_SOME_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: "https://lumos-pitch.netlify.app/dashboard/overview",
+        redirect_uri: `${
+          import.meta.env.VITE_SOME_LOCAL_SERVER
+        }/dashboard/overview`,
         audience: import.meta.env.VITE_SOME_AUDIENCE,
         // scope:
         //   "read:current_user update:current_user_metadata openid profile email",

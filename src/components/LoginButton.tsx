@@ -6,7 +6,9 @@ const LoginButton = () => {
   const handleLogin = async () => {
     await loginWithRedirect({
       appState: {
-        returnTo: "http://localhost:5173/dashboard/overview",
+        returnTo: `${
+          import.meta.env.VITE_SOME_LOCAL_SERVER
+        }/dashboard/overview`,
       },
       // authorizationParams: {
       //   screen_hint: "signup",
