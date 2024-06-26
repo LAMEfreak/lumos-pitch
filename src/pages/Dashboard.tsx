@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import RoundInvestorsSection from "@/components/RoundsSection/RoundInvestorsSection/RoundInvestorsSection";
 import RoundInvestorsProvider from "@/utilities/context/RoundInvestorsProvider";
+import { ThreeDots } from "react-loader-spinner";
 
 export interface RoundProps {
   id: number;
@@ -29,6 +30,7 @@ const Dashboard = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [allRounds, setAllRounds] = useState<NullableRoundProps[]>([]);
   const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedRound, setSelectedRound] = useState<NullableRoundProps>(
     allRounds[0] || null
   );
@@ -78,6 +80,7 @@ const Dashboard = () => {
         return 0;
       });
       setAllRounds(sortedData);
+      setIsLoading(false);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -167,10 +170,21 @@ const Dashboard = () => {
           </TabsList>
         </div>
         <TabsContent value="overview">
-          <RoundsSection
-            selectedRound={selectedRound}
-            getAllRounds={getAllRounds}
-          />
+          {isLoading ? (
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="60"
+              color="#fff"
+              radius="12"
+              ariaLabel="three-dots-loading"
+            />
+          ) : (
+            <RoundsSection
+              selectedRound={selectedRound}
+              getAllRounds={getAllRounds}
+            />
+          )}
         </TabsContent>
         <TabsContent value="investors">
           <RoundInvestorsProvider selectedRoundId={selectedRound.id}>

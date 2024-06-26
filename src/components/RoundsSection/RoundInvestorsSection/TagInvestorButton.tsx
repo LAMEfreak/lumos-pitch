@@ -187,7 +187,10 @@ const TagInvestorButton = ({
             </div>
           </div>
           <DialogFooter className="mt-4">
-            <Button type="submit" disabled={selectedInvestor ? false : true}>
+            <Button
+              type="submit"
+              disabled={selectedInvestor === undefined ? false : true}
+            >
               Tag Investor
             </Button>
           </DialogFooter>
