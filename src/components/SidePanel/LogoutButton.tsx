@@ -7,7 +7,7 @@ const LogoutButton = () => {
   const handleLogout = () => {
     logout({
       logoutParams: {
-        returnTo: "http://localhost:5173/",
+        returnTo: import.meta.env.VITE_SOME_LOCAL_SERVER,
       },
     });
   };
