@@ -170,21 +170,10 @@ const Dashboard = () => {
           </TabsList>
         </div>
         <TabsContent value="overview">
-          {isLoading ? (
-            <ThreeDots
-              visible={true}
-              height="80"
-              width="60"
-              color="#fff"
-              radius="12"
-              ariaLabel="three-dots-loading"
-            />
-          ) : (
-            <RoundsSection
-              selectedRound={selectedRound}
-              getAllRounds={getAllRounds}
-            />
-          )}
+          <RoundsSection
+            selectedRound={selectedRound}
+            getAllRounds={getAllRounds}
+          />
         </TabsContent>
         <TabsContent value="investors">
           <RoundInvestorsProvider selectedRoundId={selectedRound.id}>
@@ -229,13 +218,24 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <div className="container max-h-screen">
-        <div className="border-dashed border-2 border-gray-800 flex justify-center h-[70vh] rounded-lg text bg-opacity-5 bg-blue-900">
-          <p className="px-6 py-4 rounded-xl text-gray-400 self-center">
-            Add investors or a new funding round
-          </p>
+      {isLoading ? (
+        <ThreeDots
+          visible={true}
+          height="80"
+          width="60"
+          color="#fff"
+          radius="12"
+          ariaLabel="three-dots-loading"
+        />
+      ) : (
+        <div className="container max-h-screen">
+          <div className="border-dashed border-2 border-gray-800 flex justify-center h-[70vh] rounded-lg text bg-opacity-5 bg-blue-900">
+            <p className="px-6 py-4 rounded-xl text-gray-400 self-center">
+              Add investors or a new funding round
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

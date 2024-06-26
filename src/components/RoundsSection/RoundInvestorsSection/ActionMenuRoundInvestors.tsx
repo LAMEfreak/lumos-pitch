@@ -60,7 +60,7 @@ const ActionMenuRoundInvestors = ({
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();
     try {
-      const result = await axios.delete(
+      await axios.delete(
         `${
           import.meta.env.VITE_SOME_BACKEND_SERVER
         }/startup/${auth0Id}/roundInvestors/${id}`,
@@ -68,7 +68,7 @@ const ActionMenuRoundInvestors = ({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(result);
+      // console.log(result);
       getRoundInvestors();
       toast({
         description: "Investor succesfully removed from round",
@@ -88,7 +88,7 @@ const ActionMenuRoundInvestors = ({
       };
       console.log(body);
 
-      const result = await axios.put(
+      await axios.put(
         `${
           import.meta.env.VITE_SOME_BACKEND_SERVER
         }/startup/${auth0Id}/roundInvestors/${id}`,
@@ -97,7 +97,7 @@ const ActionMenuRoundInvestors = ({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("result", result);
+      // console.log("result", result);
       getRoundInvestors();
       toast({
         description: "Funding details succesfully updated",

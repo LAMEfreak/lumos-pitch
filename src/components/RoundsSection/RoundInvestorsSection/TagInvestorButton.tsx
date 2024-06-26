@@ -51,6 +51,12 @@ const TagInvestorButton = ({
     const token = await getAccessTokenSilently();
     const auth0Id = user?.sub;
 
+    if (!selectedInvestor.id)
+      return toast({
+        description: "Please select an investor",
+        variant: "destructive",
+      });
+
     const body = {
       raised,
       committed,
@@ -59,7 +65,7 @@ const TagInvestorButton = ({
     };
 
     try {
-      const result = await axios.post(
+      await axios.post(
         `${
           import.meta.env.VITE_SOME_BACKEND_SERVER
         }/startup/${auth0Id}/roundInvestors`,
@@ -76,7 +82,6 @@ const TagInvestorButton = ({
       toast({
         description: "Investor succesfully tagged to round!",
       });
-      console.log(result.data);
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -187,12 +192,7 @@ const TagInvestorButton = ({
             </div>
           </div>
           <DialogFooter className="mt-4">
-            <Button
-              type="submit"
-              disabled={selectedInvestor === undefined ? false : true}
-            >
-              Tag Investor
-            </Button>
+            <Button type="submit">Tag Investor</Button>
           </DialogFooter>
         </form>
       </DialogContent>
