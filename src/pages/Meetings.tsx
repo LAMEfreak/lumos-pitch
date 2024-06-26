@@ -37,7 +37,7 @@ const Meetings = () => {
         </div>
         <TabsContent value="meeting">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="w-full rounded-lg bg-cover bg-banner-image p-10">
+            <div className="w-full rounded-lg bg-[#0D0A1A] p-10">
               <div className="flex h-full justify-between">
                 <div className="flex self-end flex-col">
                   <p className="text-5xl font-bold">{clock}</p>
