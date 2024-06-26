@@ -100,7 +100,7 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log(result);
+        // console.log(result);
       } catch (error) {
         console.log(`Error: ${error}`);
       }

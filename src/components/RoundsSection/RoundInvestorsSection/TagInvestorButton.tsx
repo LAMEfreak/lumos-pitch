@@ -74,7 +74,7 @@ const TagInvestorButton = ({
       setIsOpen(false);
       getRoundInvestors();
       toast({
-        description: "Investor succesfullly tagged to round!",
+        description: "Investor succesfully tagged to round!",
       });
       console.log(result.data);
     } catch (error) {
@@ -85,7 +85,6 @@ const TagInvestorButton = ({
   useEffect(() => {
     // Compare existing round investors with all investors tagged to user, to filter out already tagged investors
     const fetchFilteredInvestors = async () => {
-
       const roundInvestorIds = currentRoundInvestors?.map(
         (investor: RoundInvestor) => investor.investorId
       );
@@ -188,7 +187,9 @@ const TagInvestorButton = ({
             </div>
           </div>
           <DialogFooter className="mt-4">
-            <Button type="submit">Tag Investor</Button>
+            <Button type="submit" disabled={selectedInvestor ? false : true}>
+              Tag Investor
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
