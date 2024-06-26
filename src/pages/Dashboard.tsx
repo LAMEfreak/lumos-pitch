@@ -32,11 +32,11 @@ const Dashboard = () => {
   const [selectedRound, setSelectedRound] = useState<NullableRoundProps>(
     allRounds[0] || null
   );
-
+  
   const getAllRounds = async () => {
     const auth0Id = user?.sub;
     const token = await getAccessTokenSilently();
-
+    
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_SOME_BACKEND_SERVER}/startup/${auth0Id}/rounds`,
@@ -100,7 +100,7 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        // console.log(result);
+        console.log(result);
       } catch (error) {
         console.log(`Error: ${error}`);
       }
