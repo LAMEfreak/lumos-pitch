@@ -34,9 +34,9 @@ function App() {
             duration: 0.4,
           }}
         >
-          Track your investor contacts and funding rounds with ease.
+          Manage your investor relations and fundraises efficiently 
           <br />
-          Video call your investors at an instant
+          Video call investors at an instant
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
