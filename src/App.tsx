@@ -22,7 +22,7 @@ function App() {
           }}
         >
           <img src="/noto_magic-wand.png" alt="Wand logo" width={60} />
-          <h1>Lumos</h1>
+          <h1 className="mb-0">Lumos</h1>
         </motion.div>
         <motion.p
           className="text-gray-400 text-lg mt-4"
@@ -34,9 +34,9 @@ function App() {
             duration: 0.4,
           }}
         >
-          Manage your investor relations and fundraises efficiently 
+          Manage your investor relations and fundraises efficiently.
           <br />
-          Video call investors at an instant
+          Video call investors at an instant.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
